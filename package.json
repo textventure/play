@@ -1,7 +1,7 @@
 {
-  "name": "react-app-template",
+  "name": "textventure-play",
   "version": "0.0.0",
-  "description": "React app template.",
+  "description": "Go on a text adventure.",
   "author": "Mark <mark@remarkablemark.org>",
   "scripts": {
     "build": "react-app-rewired build",
@@ -16,6 +16,7 @@
     "start": "react-app-rewired start",
     "test": "react-app-rewired test --env=jsdom"
   },
+  "homepage": "https://textventure.github.io/play/",
   "devDependencies": {
     "@commitlint/cli": "6.2.0",
     "@commitlint/config-conventional": "6.1.3",
