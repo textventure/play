@@ -1,14 +1,12 @@
-import React, { Component } from 'react';
-import './styles.css';
+import React, { Component, Fragment } from 'react';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">textventure-play</h1>
-        </header>
-      </div>
+      <Fragment>
+        <CssBaseline />
+      </Fragment>
     );
   }
 }
