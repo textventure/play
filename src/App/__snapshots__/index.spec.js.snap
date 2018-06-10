@@ -1,17 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders correctly 1`] = `
-<div
-  className="App"
->
-  <header
-    className="App-header"
-  >
-    <h1
-      className="App-title"
-    >
-      textventure-play
-    </h1>
-  </header>
-</div>
+<Unknown>
+  <WithStyles(CssBaseline) />
+</Unknown>
 `;
