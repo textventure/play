@@ -14,7 +14,8 @@
     "precommit": "lint-staged",
     "release": "standard-version --no-verify",
     "start": "react-app-rewired start",
-    "test": "react-app-rewired test --env=jsdom"
+    "test": "CI=true react-app-rewired test --env=jsdom --coverage",
+    "test:watch": "react-app-rewired test --env=jsdom"
   },
   "homepage": "https://textventure.github.io/play/",
   "devDependencies": {
