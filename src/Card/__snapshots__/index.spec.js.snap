@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`when props.children="foo" renders correctly 1`] = `
+<Card
+  classes={
+    Object {
+      "paper": "Card-paper-1",
+    }
+  }
+>
+  foo
+</Card>
+`;
