@@ -5,24 +5,41 @@ import Typography from '@material-ui/core/Typography';
 import { getKey, getValue } from '../helpers/util';
 
 export default class Branch extends Component {
+  static defaultProps = {
+    classes: {},
+  };
+
   render() {
     const { classes, text, choices, selectChoice } = this.props;
+    const hasSelectChoice = typeof selectChoice === 'function';
+
     return (
       <Card>
-        <Typography className={classes.cardContent} component="p" gutterBottom>
-          {text}
-        </Typography>
-
-        {choices.map((choice, index) => (
-          <Button
-            className={classes.button}
-            color="primary"
-            key={index}
-            onClick={selectChoice.bind(null, getValue(choice))}
+        {text && (
+          <Typography
+            className={classes.cardContent}
+            component="p"
+            gutterBottom
           >
-            {getKey(choice)}
-          </Button>
-        ))}
+            {text}
+          </Typography>
+        )}
+
+        {choices instanceof Array &&
+          choices.map((choice, index) => (
+            <Button
+              className={classes.button}
+              color="primary"
+              key={index}
+              onClick={
+                hasSelectChoice
+                  ? selectChoice.bind(null, getValue(choice))
+                  : undefined
+              }
+            >
+              {getKey(choice)}
+            </Button>
+          ))}
       </Card>
     );
   }
