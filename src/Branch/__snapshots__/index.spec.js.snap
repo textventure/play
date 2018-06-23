@@ -1,49 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`when props.text="foo" and props.classes.cardContent="cardContent" renders correctly 1`] = `
+exports[`with props renders correctly 1`] = `
 <WithStyles(Card)>
   <WithStyles(Typography)
     className="cardContent"
     component="p"
     gutterBottom={true}
   >
-    foo
+    text
   </WithStyles(Typography)>
-</WithStyles(Card)>
-`;
-
-exports[`when props.text="foo" renders correctly 1`] = `
-<WithStyles(Card)>
-  <WithStyles(Typography)
-    className={undefined}
-    component="p"
-    gutterBottom={true}
-  >
-    foo
-  </WithStyles(Typography)>
-</WithStyles(Card)>
-`;
-
-exports[`with props.choices and props.classes.button="button" renders correctly 1`] = `
-<WithStyles(Card)>
-  <WithStyles(Button)
+  <Choice
+    choiceId="value1"
     className="button"
-    color="primary"
-    onClick={undefined}
+    selectChoice={[Function]}
   >
-    key
-  </WithStyles(Button)>
-</WithStyles(Card)>
-`;
-
-exports[`with props.choices renders correctly 1`] = `
-<WithStyles(Card)>
-  <WithStyles(Button)
-    className={undefined}
-    color="primary"
-    onClick={undefined}
+    key1
+  </Choice>
+  <Choice
+    choiceId="value2"
+    className="button"
+    selectChoice={[Function]}
   >
-    key
-  </WithStyles(Button)>
+    key2
+  </Choice>
 </WithStyles(Card)>
 `;

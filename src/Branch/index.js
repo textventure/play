@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Button from '@material-ui/core/Button';
-import Card from '../Card';
 import Typography from '@material-ui/core/Typography';
+import Card from '../Card';
+import Choice from '../Choice';
 import { getKey, getValue } from '../helpers/util';
 
 export default class Branch extends Component {
@@ -11,7 +11,6 @@ export default class Branch extends Component {
 
   render() {
     const { classes, text, choices, selectChoice } = this.props;
-    const hasSelectChoice = typeof selectChoice === 'function';
 
     return (
       <Card>
@@ -27,18 +26,14 @@ export default class Branch extends Component {
 
         {choices instanceof Array &&
           choices.map((choice, index) => (
-            <Button
+            <Choice
+              choiceId={getValue(choice)}
               className={classes.button}
-              color="primary"
               key={index}
-              onClick={
-                hasSelectChoice
-                  ? selectChoice.bind(null, getValue(choice))
-                  : undefined
-              }
+              selectChoice={selectChoice}
             >
               {getKey(choice)}
-            </Button>
+            </Choice>
           ))}
       </Card>
     );
