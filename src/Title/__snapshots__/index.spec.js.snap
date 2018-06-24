@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`with props renders correctly 1`] = `
+<WithStyles(Card)>
+  <div
+    className="cardContent"
+  >
+    <WithStyles(Typography)
+      component="h1"
+      gutterBottom={true}
+      variant="headline"
+    >
+      Title
+    </WithStyles(Typography)>
+    <WithStyles(Typography)
+      gutterBottom={true}
+      variant="caption"
+    >
+      By 
+      Author
+    </WithStyles(Typography)>
+    <WithStyles(Typography)
+      gutterBottom={true}
+    >
+      Description
+    </WithStyles(Typography)>
+  </div>
+  <Choice
+    choiceId="start"
+    className="button"
+    selectChoice={[Function]}
+  >
+    Start
+  </Choice>
+</WithStyles(Card)>
+`;
+
+exports[`without props renders correctly 1`] = `
+<WithStyles(Card)>
+  <div
+    className={undefined}
+  >
+    
+  </div>
+</WithStyles(Card)>
+`;
