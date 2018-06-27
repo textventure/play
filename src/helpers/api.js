@@ -1,5 +1,3 @@
-const { jsyaml } = window;
-
 /**
  * Gets story from URL.
  *
@@ -9,15 +7,14 @@ const { jsyaml } = window;
 export const getStory = url => {
   return fetch(url)
     .then(response => {
-      const { status } = response;
-      if (status < 200 || status >= 300) {
-        throw new Error('URL: ' + (response.statusText || status));
+      if (response.ok) {
+        return response.text();
       }
-      return response.text();
+      throw new Error('URL: ' + (response.statusText || response.status));
     })
     .then(text => {
       try {
-        return jsyaml.load(text);
+        return window.jsyaml.load(text);
       } catch (error) {
         throw new Error('YAML: Unable to parse');
       }
