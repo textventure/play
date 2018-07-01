@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import Branch from '../Branch';
 import Title from '../Title';
@@ -18,17 +19,9 @@ const styles = theme => ({
 });
 
 class Play extends Component {
-  static getDefaultProps = {
-    config: {},
-    branches: {},
+  state = {
+    currentBranchId: null,
   };
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      currentBranchId: undefined,
-    };
-  }
 
   /**
    * Updates next story branch id based on choice.
@@ -42,7 +35,20 @@ class Play extends Component {
   };
 
   render() {
-    const { classes, config, branches } = this.props;
+    const { classes, location } = this.props;
+    const { branches, config } = location;
+
+    if (!branches || !config) {
+      return (
+        <Redirect
+          to={{
+            pathname: '/load',
+            search: location.search,
+          }}
+        />
+      );
+    }
+
     const { currentBranchId } = this.state;
     const currentBranch = branches[currentBranchId];
 
