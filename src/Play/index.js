@@ -19,6 +19,10 @@ const styles = theme => ({
 });
 
 class Play extends Component {
+  static defaultProps = {
+    location: {},
+  };
+
   state = {
     currentBranchId: null,
   };

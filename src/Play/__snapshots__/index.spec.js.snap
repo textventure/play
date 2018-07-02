@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`when props.location.config={} and props.location.branches={} renders correctly 1`] = `
+<main
+  className="Play-main-1"
+>
+  <Title
+    classes={
+      Object {
+        "button": "Play-button-3",
+        "cardContent": "Play-cardContent-2",
+        "main": "Play-main-1",
+      }
+    }
+    config={Object {}}
+    displayAction={true}
+    selectChoice={[Function]}
+  />
+</main>
+`;
+
+exports[`with props.location.branches and state.currentBranchId renders correctly 1`] = `
+<main
+  className="Play-main-1"
+>
+  <Title
+    classes={
+      Object {
+        "button": "Play-button-3",
+        "cardContent": "Play-cardContent-2",
+        "main": "Play-main-1",
+      }
+    }
+    config={Object {}}
+    displayAction={false}
+    selectChoice={[Function]}
+  />
+  <Branch
+    choices={
+      Array [
+        Object {
+          "Choice text.": "choice",
+        },
+      ]
+    }
+    classes={
+      Object {
+        "button": "Play-button-3",
+        "cardContent": "Play-cardContent-2",
+        "main": "Play-main-1",
+      }
+    }
+    selectChoice={[Function]}
+    text="Text."
+  />
+</main>
+`;
+
+exports[`without props renders correctly 1`] = `
+<Redirect
+  push={false}
+  to={
+    Object {
+      "pathname": "/load",
+      "search": undefined,
+    }
+  }
+/>
+`;
