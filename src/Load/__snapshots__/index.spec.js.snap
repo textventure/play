@@ -1,0 +1,114 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`when state.message="Message" renders correctly 1`] = `
+<WithStyles(Card)>
+  <WithStyles(Snackbar)
+    autoHideDuration={6000}
+    message="Message"
+    onClose={[Function]}
+    open={true}
+  />
+  <form
+    onSubmit={[Function]}
+  >
+    <WithStyles(Typography)
+      gutterBottom={true}
+      variant="headline"
+    >
+      Load Story
+    </WithStyles(Typography)>
+    <TextField
+      InputLabelProps={
+        Object {
+          "shrink": true,
+        }
+      }
+      autoFocus={true}
+      error={false}
+      fullWidth={true}
+      helperText=""
+      label="URL"
+      margin="normal"
+      name="url"
+      onChange={[Function]}
+      placeholder="http://localhost/example.yaml"
+      required={true}
+      select={false}
+      spellCheck={false}
+      type="url"
+      value=""
+    />
+    <br />
+    <br />
+    <WithStyles(Button)
+      color="primary"
+      size="medium"
+      type="submit"
+      variant="contained"
+    >
+      Load
+    </WithStyles(Button)>
+  </form>
+</WithStyles(Card)>
+`;
+
+exports[`with state.branches and state.config and state.value="http://foo.bar" renders correctly 1`] = `
+<Redirect
+  push={false}
+  to={
+    Object {
+      "branches": Object {},
+      "config": Object {},
+      "pathname": "/play",
+      "search": "url=http%3A%2F%2Ffoo.bar",
+    }
+  }
+/>
+`;
+
+exports[`without props renders correctly 1`] = `
+<WithStyles(Card)>
+  
+  <form
+    onSubmit={[Function]}
+  >
+    <WithStyles(Typography)
+      gutterBottom={true}
+      variant="headline"
+    >
+      Load Story
+    </WithStyles(Typography)>
+    <TextField
+      InputLabelProps={
+        Object {
+          "shrink": true,
+        }
+      }
+      autoFocus={true}
+      error={false}
+      fullWidth={true}
+      helperText=""
+      label="URL"
+      margin="normal"
+      name="url"
+      onChange={[Function]}
+      placeholder="http://localhost/example.yaml"
+      required={true}
+      select={false}
+      spellCheck={false}
+      type="url"
+      value=""
+    />
+    <br />
+    <br />
+    <WithStyles(Button)
+      color="primary"
+      size="medium"
+      type="submit"
+      variant="contained"
+    >
+      Load
+    </WithStyles(Button)>
+  </form>
+</WithStyles(Card)>
+`;

@@ -23,10 +23,12 @@ export default class Load extends Component {
       message: '',
     };
 
-    const url = new URLSearchParams(props.location.search).get('url');
-    if (url) {
-      this.state.value = url;
-    }
+    try {
+      const url = new URLSearchParams(props.location.search).get('url');
+      if (url) {
+        this.state.value = url;
+      }
+    } catch (error) {}
   }
 
   /**
