@@ -3,10 +3,14 @@ import { shallow } from 'enzyme';
 import Card from '.';
 
 let wrapper;
+let props;
 
 describe('when props.children="foo"', () => {
   beforeAll(() => {
-    wrapper = shallow(<Card>foo</Card>);
+    props = {
+      children: 'foo',
+    };
+    wrapper = shallow(<Card {...props} />).dive();
   });
 
   it('renders correctly', () => {
