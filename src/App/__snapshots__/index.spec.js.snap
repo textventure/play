@@ -1,7 +1,33 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders correctly 1`] = `
-<Unknown>
-  <WithStyles(CssBaseline) />
-</Unknown>
+<BrowserRouter>
+  <GridWrapper
+    container={true}
+    justify="center"
+  >
+    <WithStyles(CssBaseline) />
+    <GridWrapper
+      className="App-gridItem-1"
+      item={true}
+      xs={12}
+    >
+      <Switch>
+        <Route
+          component={[Function]}
+          exact={true}
+          path="/"
+        />
+        <Route
+          component={[Function]}
+          path="/load"
+        />
+        <Route
+          component={[Function]}
+          path="/play"
+        />
+      </Switch>
+    </GridWrapper>
+  </GridWrapper>
+</BrowserRouter>
 `;

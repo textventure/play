@@ -35,6 +35,7 @@ class App extends Component {
 
 App = withStyles(styles)(App);
 
+/* istanbul ignore if */
 if (process.env.NODE_ENV === 'development') {
   const { hot } = require('react-hot-loader');
   App = hot(module)(App);
