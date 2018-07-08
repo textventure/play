@@ -253,6 +253,32 @@ describe('onSubmit', () => {
     });
   });
 
+  describe('with missing properties', () => {
+    beforeAll(() => {
+      resolvedValue = {};
+      getStory.mockImplementation(
+        () => new Promise(resolve => resolve(resolvedValue))
+      );
+
+      wrapper = shallow(<Load />);
+      state = {
+        value: 'http://foo.bar',
+      };
+      wrapper.setState(state);
+      wrapper.instance().handleSubmit({ preventDefault: () => {} });
+    });
+
+    it('does not set state', () => {
+      expect(wrapper.state('branches')).toEqual(null);
+      expect(wrapper.state('config')).toEqual(null);
+    });
+
+    it('does not redirect to "/play"', () => {
+      wrapper.update();
+      expect(wrapper.find('Redirect').length).toBe(0);
+    });
+  });
+
   describe('when unsuccessful', () => {
     beforeAll(() => {
       rejectedValue = {
