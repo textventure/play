@@ -1,7 +1,7 @@
 {
-  "name": "textventure-play",
+  "name": "textventure",
   "version": "0.0.0",
-  "description": "Go on a text adventure.",
+  "description": "Text adventure interface.",
   "author": "Mark <mark@remarkablemark.org>",
   "scripts": {
     "build": "react-app-rewired build",
@@ -17,7 +17,7 @@
     "test": "npm run test:watch -- --ci --coverage",
     "test:watch": "react-app-rewired test --env=jsdom"
   },
-  "homepage": "https://textventure.github.io/play/",
+  "homepage": "https://textventure.github.io",
   "devDependencies": {
     "@commitlint/cli": "6.2.0",
     "@commitlint/config-conventional": "6.1.3",
