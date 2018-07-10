@@ -11,10 +11,10 @@
     "eject": "react-scripts eject",
     "lint": "eslint --ignore-path .gitignore .",
     "lint:fix": "npm run lint -- --fix",
-    "precommit": "lint-staged",
+    "precommit": "npm test && lint-staged",
     "release": "standard-version --no-verify",
     "start": "react-app-rewired start",
-    "test": "CI=true react-app-rewired test --env=jsdom --coverage",
+    "test": "npm run test:watch -- --ci --coverage",
     "test:watch": "react-app-rewired test --env=jsdom"
   },
   "homepage": "https://textventure.github.io/play/",
