@@ -32,7 +32,7 @@ describe('without props', () => {
 
   it('renders <TextField> with placeholder', () => {
     expect(wrapper.find('TextField').prop('placeholder')).toBe(
-      'http://localhost/example.yaml'
+      'http://localhost/demo.yaml'
     );
   });
 
