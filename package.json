@@ -4,7 +4,7 @@
   "description": "Text adventure interface.",
   "author": "Mark <mark@remarkablemark.org>",
   "scripts": {
-    "build": "react-app-rewired build",
+    "build": "NODE_ENV=production react-app-rewired build",
     "clean": "rimraf build",
     "commitmsg": "commitlint -e $GIT_PARAMS",
     "deploy": "scripts/deploy.sh",
@@ -13,7 +13,7 @@
     "lint:fix": "npm run lint -- --fix",
     "precommit": "npm test && lint-staged",
     "release": "standard-version --no-verify",
-    "start": "react-app-rewired start",
+    "start": "NODE_ENV=development react-app-rewired start",
     "test": "npm run test:watch -- --ci --coverage",
     "test:watch": "react-app-rewired test --env=jsdom"
   },
