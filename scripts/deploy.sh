@@ -1,8 +1,7 @@
 #!/bin/bash
 
 # run lint and tests first
-npm run lint
-CI=true npm test -- --coverage
+npm run lint && npm test
 
 # make sure working index is clean
 stash_output=$(git stash)
