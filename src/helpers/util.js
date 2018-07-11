@@ -34,25 +34,35 @@ export const formatAuthor = author => {
 };
 
 /**
- * Gets first property key from object.
+ * Gets key.
  *
- * @param  {Object} object
+ * @param  {String|Object} value
  * @return {String}
  */
-export const getKey = object => {
-  for (let key in object) {
-    return key;
+export const getKey = value => {
+  if (typeof value === 'string') {
+    return value;
+  }
+
+  // return first property key
+  if (value instanceof Object) {
+    for (let key in value) {
+      return key;
+    }
   }
 };
 
 /**
- * Gets first property value from object.
+ * Gets value.
  *
- * @param  {Object} object
+ * @param  {Object} obj
  * @return {*}
  */
-export const getValue = object => {
-  for (let key in object) {
-    return object[key];
+export const getValue = obj => {
+  // return first property value
+  if (obj instanceof Object) {
+    for (let key in obj) {
+      return obj[key];
+    }
   }
 };
