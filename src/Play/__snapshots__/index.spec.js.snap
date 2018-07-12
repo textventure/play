@@ -1,15 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`when props.location.config={} and props.location.branches={} renders correctly 1`] = `
+exports[`when props.location.config={}, props.location.branches={}, and state.isLoading=false renders correctly 1`] = `
 <main
-  className="Play-main-1"
+  className="Play-main-3"
 >
   <Title
     classes={
       Object {
-        "button": "Play-button-3",
+        "button": "Play-button-1",
         "cardContent": "Play-cardContent-2",
-        "main": "Play-main-1",
+        "main": "Play-main-3",
+        "progress": "Play-progress-4",
       }
     }
     config={Object {}}
@@ -19,16 +20,37 @@ exports[`when props.location.config={} and props.location.branches={} renders co
 </main>
 `;
 
-exports[`with props.location.branches and state.currentBranchId renders correctly 1`] = `
+exports[`when props={} and state.isLoading=false renders correctly 1`] = `
+<Redirect
+  push={false}
+  to={
+    Object {
+      "pathname": "/load",
+      "search": undefined,
+    }
+  }
+/>
+`;
+
+exports[`when props={} renders correctly 1`] = `
+<div
+  className="Play-progress-4"
+>
+  <WithStyles(LinearProgress) />
+</div>
+`;
+
+exports[`with props.location.branches, state.currentBranchId, and state.isLoading=false renders correctly 1`] = `
 <main
-  className="Play-main-1"
+  className="Play-main-3"
 >
   <Title
     classes={
       Object {
-        "button": "Play-button-3",
+        "button": "Play-button-1",
         "cardContent": "Play-cardContent-2",
-        "main": "Play-main-1",
+        "main": "Play-main-3",
+        "progress": "Play-progress-4",
       }
     }
     config={Object {}}
@@ -45,25 +67,14 @@ exports[`with props.location.branches and state.currentBranchId renders correctl
     }
     classes={
       Object {
-        "button": "Play-button-3",
+        "button": "Play-button-1",
         "cardContent": "Play-cardContent-2",
-        "main": "Play-main-1",
+        "main": "Play-main-3",
+        "progress": "Play-progress-4",
       }
     }
     selectChoice={[Function]}
     text="Text."
   />
 </main>
-`;
-
-exports[`without props renders correctly 1`] = `
-<Redirect
-  push={false}
-  to={
-    Object {
-      "pathname": "/load",
-      "search": undefined,
-    }
-  }
-/>
 `;

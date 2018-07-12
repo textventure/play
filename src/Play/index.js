@@ -1,20 +1,25 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import Branch from '../Branch';
 import Title from '../Title';
+import { getStory } from '../helpers/api';
 import { getKey, getValue } from '../helpers/util';
 
 const styles = theme => ({
-  main: {
-    display: 'block', // fix for IE 9-11
+  button: {
+    textAlign: 'left',
+    textTransform: 'none',
   },
   cardContent: {
     marginBottom: theme.spacing.unit * 2, // 16px
   },
-  button: {
-    textAlign: 'left',
-    textTransform: 'none',
+  main: {
+    display: 'block', // fix for IE 9-11
+  },
+  progress: {
+    marginTop: theme.spacing.unit * 4, // 32px
   },
 });
 
@@ -23,9 +28,43 @@ class Play extends Component {
     location: {},
   };
 
-  state = {
-    currentBranchId: null,
-  };
+  constructor(props) {
+    super(props);
+    const { branches, config } = props.location;
+
+    this.state = {
+      branches,
+      config,
+      currentBranchId: null,
+      isLoading: true,
+    };
+  }
+
+  componentDidMount() {
+    try {
+      const url = new URLSearchParams(this.props.location.search).get('url');
+
+      getStory(url)
+        .then(story => {
+          const newState = {
+            isLoading: false,
+          };
+
+          const { _config: config, ...branches } = story;
+          if (config && branches) {
+            newState.config = config;
+            newState.branches = branches;
+          }
+
+          this.setState(newState);
+        })
+        .catch(error => {
+          this.setState({
+            isLoading: false,
+          });
+        });
+    } catch (error) {}
+  }
 
   /**
    * Updates next story branch id based on choice.
@@ -40,7 +79,15 @@ class Play extends Component {
 
   render() {
     const { classes, location } = this.props;
-    const { branches, config } = location;
+    const { branches, config, currentBranchId, isLoading } = this.state;
+
+    if (isLoading) {
+      return (
+        <div className={classes.progress}>
+          <LinearProgress />
+        </div>
+      );
+    }
 
     if (!branches || !config) {
       return (
@@ -53,7 +100,6 @@ class Play extends Component {
       );
     }
 
-    const { currentBranchId } = this.state;
     const currentBranch = branches[currentBranchId];
 
     return (
