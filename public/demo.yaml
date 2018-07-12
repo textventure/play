@@ -1,0 +1,44 @@
+_config:
+  title: Textventure Demo
+  description: >
+    An introduction to textventure.
+  author:
+    - remarkablemark
+  start:
+    START: start
+
+start:
+  Welcome to the textventure demo. Hit NEXT to proceed.:
+    - NEXT: next
+
+next:
+  Textventure is a interface for writing and playing text adventures (a.k.a. interactive fiction).:
+    - Tell me more.: more
+    - Got it.: more
+
+more:
+  All textventure narratives (including this one) are written in YAML.:
+    - What's YAML?: yaml
+    - Ah, I see.: write
+
+yaml:
+  ? |
+    YAML (YAML Ain't Markup Language) is a human-readable data serialization language.
+
+    In our case, think of it as a story script with multiple paths or branches.
+  :
+    - How can I play a text adventure?: play
+    - How can I write a text adventure?: write
+
+play:
+  To play a text adventure, simply submit a link to a valid textventure YAML file on the "/load" page.:
+    - How can I write a text adventure?: write
+    - END: end
+
+write:
+  To write a text adventure, check out "/demo.yaml" to get an idea.:
+    - How can I play my own text adventure?: play
+    - END: end
+
+end:
+  This concludes the textventure demo. Thank you for playing!
