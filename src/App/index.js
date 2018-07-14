@@ -6,12 +6,7 @@ import Grid from '@material-ui/core/Grid';
 
 import Load from '../Load';
 import Play from '../Play';
-
-const styles = {
-  gridItem: {
-    maxWidth: 600,
-  },
-};
+import styles from './styles';
 
 class App extends Component {
   render() {
@@ -20,7 +15,7 @@ class App extends Component {
       <Router>
         <CssBaseline>
           <Grid container justify="center">
-            <Grid item xs={12} className={classes.gridItem}>
+            <Grid item xs={12} className={classes.grid}>
               <Switch>
                 <Route exact path="/" component={Load} />
                 <Route path="/load" component={Load} />

@@ -8,7 +8,7 @@ exports[`renders correctly 1`] = `
       justify="center"
     >
       <GridWrapper
-        className="App-gridItem-1"
+        className="App-grid-1"
         item={true}
         xs={12}
       >
