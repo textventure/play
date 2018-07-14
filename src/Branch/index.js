@@ -40,7 +40,7 @@ export default class Branch extends Component {
               key={index}
               selectChoice={selectChoice}
             >
-              {render(getKey(choice), renderer)}
+              {render(getKey(choice), renderer, 'span')}
             </Choice>
           ))}
       </Card>
