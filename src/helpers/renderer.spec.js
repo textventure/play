@@ -42,6 +42,14 @@ describe('when format="markdown"', () => {
       <div dangerouslySetInnerHTML={{ __html: 'foo' }} />
     );
   });
+
+  describe('and element="span"', () => {
+    it('returns React element with innerHTML', () => {
+      expect(render('foo', 'html', 'span')).toEqual(
+        <span dangerouslySetInnerHTML={{ __html: 'foo' }} />
+      );
+    });
+  });
 });
 
 describe('when format="html"', () => {
@@ -55,5 +63,13 @@ describe('when format="html"', () => {
     expect(render('foo\n ', 'html')).toEqual(
       <div dangerouslySetInnerHTML={{ __html: 'foo' }} />
     );
+  });
+
+  describe('and element="span"', () => {
+    it('returns React element with innerHTML', () => {
+      expect(render('foo', 'html', 'span')).toEqual(
+        <span dangerouslySetInnerHTML={{ __html: 'foo' }} />
+      );
+    });
   });
 });

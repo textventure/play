@@ -13,22 +13,21 @@ const removeNewlines = string => string.trim().replace(/\n/g, '');
  *
  * @param  {String}              input
  * @param  {String}              [format="text"]
+ * @param  {String}              [element="div"]
  * @return {String|ReactElement}
  */
-const render = (input, format = 'text') => {
+const render = (input, format = 'text', element = 'div') => {
   switch (format) {
     case 'html':
-      return (
-        <div dangerouslySetInnerHTML={{ __html: removeNewlines(input) }} />
-      );
+      return React.createElement(element, {
+        dangerouslySetInnerHTML: { __html: removeNewlines(input) },
+      });
     case 'markdown':
-      return (
-        <div
-          dangerouslySetInnerHTML={{
-            __html: removeNewlines(window.marked(input, { headerIds: false })),
-          }}
-        />
-      );
+      return React.createElement(element, {
+        dangerouslySetInnerHTML: {
+          __html: removeNewlines(window.marked(input, { headerIds: false })),
+        },
+      });
     case 'text':
     default:
       return input;
