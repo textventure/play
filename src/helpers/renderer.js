@@ -1,6 +1,14 @@
 import React from 'react';
 
 /**
+ * Removes newlines from string.
+ *
+ * @param  {String} string
+ * @return {String}
+ */
+const removeNewlines = string => string.trim().replace(/\n/g, '');
+
+/**
  * Renders text based on format.
  *
  * @param  {String}              input
@@ -10,12 +18,14 @@ import React from 'react';
 const render = (input, format = 'text') => {
   switch (format) {
     case 'html':
-      return <div dangerouslySetInnerHTML={{ __html: input }} />;
+      return (
+        <div dangerouslySetInnerHTML={{ __html: removeNewlines(input) }} />
+      );
     case 'markdown':
       return (
         <div
           dangerouslySetInnerHTML={{
-            __html: window.marked(input, { headerIds: false }),
+            __html: removeNewlines(window.marked(input, { headerIds: false })),
           }}
         />
       );

@@ -36,11 +36,23 @@ describe('when format="markdown"', () => {
       <div dangerouslySetInnerHTML={{ __html: 'foo' }} />
     );
   });
+
+  it('removes newlines in output', () => {
+    expect(render('foo\n ', 'markdown')).toEqual(
+      <div dangerouslySetInnerHTML={{ __html: 'foo' }} />
+    );
+  });
 });
 
 describe('when format="html"', () => {
   it('returns React element with innerHTML', () => {
     expect(render('foo', 'html')).toEqual(
+      <div dangerouslySetInnerHTML={{ __html: 'foo' }} />
+    );
+  });
+
+  it('removes newlines in output', () => {
+    expect(render('foo\n ', 'html')).toEqual(
       <div dangerouslySetInnerHTML={{ __html: 'foo' }} />
     );
   });
