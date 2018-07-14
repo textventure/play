@@ -18,16 +18,17 @@ class App extends Component {
     const { classes } = this.props;
     return (
       <Router>
-        <Grid container justify="center">
-          <CssBaseline />
-          <Grid item xs={12} className={classes.gridItem}>
-            <Switch>
-              <Route exact path="/" component={Load} />
-              <Route path="/load" component={Load} />
-              <Route path="/play" component={Play} />
-            </Switch>
+        <CssBaseline>
+          <Grid container justify="center">
+            <Grid item xs={12} className={classes.gridItem}>
+              <Switch>
+                <Route exact path="/" component={Load} />
+                <Route path="/load" component={Load} />
+                <Route path="/play" component={Play} />
+              </Switch>
+            </Grid>
           </Grid>
-        </Grid>
+        </CssBaseline>
       </Router>
     );
   }

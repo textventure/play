@@ -2,32 +2,33 @@
 
 exports[`renders correctly 1`] = `
 <BrowserRouter>
-  <GridWrapper
-    container={true}
-    justify="center"
-  >
-    <WithStyles(CssBaseline) />
+  <WithStyles(CssBaseline)>
     <GridWrapper
-      className="App-gridItem-1"
-      item={true}
-      xs={12}
+      container={true}
+      justify="center"
     >
-      <Switch>
-        <Route
-          component={[Function]}
-          exact={true}
-          path="/"
-        />
-        <Route
-          component={[Function]}
-          path="/load"
-        />
-        <Route
-          component={[Function]}
-          path="/play"
-        />
-      </Switch>
+      <GridWrapper
+        className="App-gridItem-1"
+        item={true}
+        xs={12}
+      >
+        <Switch>
+          <Route
+            component={[Function]}
+            exact={true}
+            path="/"
+          />
+          <Route
+            component={[Function]}
+            path="/load"
+          />
+          <Route
+            component={[Function]}
+            path="/play"
+          />
+        </Switch>
+      </GridWrapper>
     </GridWrapper>
-  </GridWrapper>
+  </WithStyles(CssBaseline)>
 </BrowserRouter>
 `;
