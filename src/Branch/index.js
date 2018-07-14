@@ -3,24 +3,26 @@ import Typography from '@material-ui/core/Typography';
 import Card from '../Card';
 import Choice from '../Choice';
 import { getKey, getValue } from '../helpers/util';
+import render from '../helpers/renderer';
 
 export default class Branch extends Component {
   static defaultProps = {
     classes: {},
+    config: {},
   };
 
   render() {
-    const { classes, text, choices, selectChoice } = this.props;
+    const { choices, classes, config, selectChoice, text } = this.props;
 
     return (
       <Card>
         {text && (
           <Typography
             className={classes.cardContent}
-            component="p"
+            component="div"
             gutterBottom
           >
-            {text}
+            {render(text, config.renderer)}
           </Typography>
         )}
 

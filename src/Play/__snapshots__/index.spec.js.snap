@@ -73,6 +73,7 @@ exports[`with props.location.branches, state.currentBranchId, and state.isLoadin
         "progress": "Play-progress-4",
       }
     }
+    config={Object {}}
     selectChoice={[Function]}
     text="Text."
   />

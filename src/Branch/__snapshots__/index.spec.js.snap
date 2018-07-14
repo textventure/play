@@ -4,7 +4,7 @@ exports[`with props renders correctly 1`] = `
 <WithStyles(Card)>
   <WithStyles(Typography)
     className="cardContent"
-    component="p"
+    component="div"
     gutterBottom={true}
   >
     text
