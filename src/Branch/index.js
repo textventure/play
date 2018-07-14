@@ -12,7 +12,13 @@ export default class Branch extends Component {
   };
 
   render() {
-    const { choices, classes, config, selectChoice, text } = this.props;
+    const {
+      choices,
+      classes,
+      config: { renderer },
+      selectChoice,
+      text,
+    } = this.props;
 
     return (
       <Card>
@@ -22,7 +28,7 @@ export default class Branch extends Component {
             component="div"
             gutterBottom
           >
-            {render(text, config.renderer)}
+            {render(text, renderer)}
           </Typography>
         )}
 
@@ -34,7 +40,7 @@ export default class Branch extends Component {
               key={index}
               selectChoice={selectChoice}
             >
-              {getKey(choice)}
+              {render(getKey(choice), renderer)}
             </Choice>
           ))}
       </Card>
