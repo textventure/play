@@ -3,19 +3,48 @@ import { shallow } from 'enzyme';
 import Branch from '.';
 
 let wrapper;
+let props;
 
-describe('with props', () => {
-  const props = {
-    text: 'text',
-    classes: {
-      button: 'button',
-      cardContent: 'cardContent',
-    },
-    choices: [{ key1: 'value1' }, { key2: 'value2' }],
-    selectChoice: Function,
-  };
-
+describe('when props={}', () => {
   beforeAll(() => {
+    wrapper = shallow(<Branch />);
+  });
+
+  it('renders correctly', () => {
+    expect(wrapper.getElement()).toMatchSnapshot();
+  });
+});
+
+describe('when props.text="text"', () => {
+  beforeAll(() => {
+    wrapper = shallow(<Branch text="text" />);
+  });
+
+  it('renders correctly', () => {
+    expect(wrapper.getElement()).toMatchSnapshot();
+  });
+
+  describe('and props.config.renderer="text"', () => {
+    beforeAll(() => {
+      wrapper.setProps({
+        config: {
+          renderer: 'text',
+        },
+      });
+    });
+
+    it('renders correctly', () => {
+      expect(wrapper.getElement()).toMatchSnapshot();
+    });
+  });
+});
+
+describe('with props.choices and props.selectChoice', () => {
+  beforeAll(() => {
+    props = {
+      choices: [{ key1: 'value1' }, { key2: 'value2' }],
+      selectChoice: Function,
+    };
     wrapper = shallow(<Branch {...props} />);
   });
 
