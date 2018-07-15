@@ -1,14 +1,14 @@
 _config:
-  title: Textventure Demo
-  description: >
-    An introduction to textventure.
-  author:
-    - remarkablemark
-  start:
-    START: start
+  start: start
 
 start:
-  Welcome to the textventure demo. Hit NEXT to proceed.:
+  ? |
+    Textventure Demo
+
+    Welcome to an introductory overview of textventure.
+
+    Hit NEXT to proceed.
+  :
     - NEXT: next
 
 next:
