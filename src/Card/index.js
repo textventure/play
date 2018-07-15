@@ -12,8 +12,10 @@ const styles = theme => ({
 
 class Card extends Component {
   render() {
-    const { children, classes } = this.props;
-    return <Paper className={classes.paper}>{children}</Paper>;
+    const { children, classes, className } = this.props;
+    return (
+      <Paper className={[classes.paper, className].join(' ')}>{children}</Paper>
+    );
   }
 }
 

@@ -2,8 +2,14 @@
 
 exports[`when props.children="foo" renders correctly 1`] = `
 <WithStyles(Paper)
-  className="Card-paper-1"
+  className="Card-paper-1 "
 >
   foo
 </WithStyles(Paper)>
+`;
+
+exports[`when props.className="foo" renders correctly 1`] = `
+<WithStyles(Paper)
+  className="Card-paper-1 foo"
+/>
 `;
