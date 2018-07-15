@@ -14,14 +14,18 @@ exports[`with props renders correctly 1`] = `
     className="button"
     selectChoice={[Function]}
   >
-    key1
+    <span>
+      key1
+    </span>
   </Choice>
   <Choice
     choiceId="value2"
     className="button"
     selectChoice={[Function]}
   >
-    key2
+    <span>
+      key2
+    </span>
   </Choice>
 </WithStyles(Card)>
 `;

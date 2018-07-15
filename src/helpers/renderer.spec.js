@@ -5,11 +5,23 @@ describe('when format=undefined', () => {
   it('returns original string', () => {
     expect(render('foo')).toBe('foo');
   });
+
+  describe('and element="p"', () => {
+    it('returns React element with text', () => {
+      expect(render('foo', undefined, 'p')).toEqual(<p>foo</p>);
+    });
+  });
 });
 
 describe('when format="text"', () => {
   it('returns original string', () => {
     expect(render('foo', 'text')).toBe('foo');
+  });
+
+  describe('and element="div"', () => {
+    it('returns React element with text', () => {
+      expect(render('foo', undefined, 'div')).toEqual(<div>foo</div>);
+    });
   });
 });
 
