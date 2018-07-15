@@ -4,6 +4,8 @@ import Choice from '../Choice';
 import { getKey, getValue } from '../helpers/util';
 import render from '../helpers/renderer';
 
+export const branchClass = 'branch';
+
 export default class Branch extends Component {
   static defaultProps = {
     config: {},
@@ -19,7 +21,9 @@ export default class Branch extends Component {
 
     return (
       <Card>
-        {text && render(text, renderer, renderer === 'text' ? 'p' : 'div')}
+        <div className={branchClass}>
+          {text && render(text, renderer, renderer === 'text' ? 'p' : 'div')}
+        </div>
 
         {choices instanceof Array &&
           choices.map((choice, index) => (

@@ -2,28 +2,41 @@
 
 exports[`when props.text="text" and props.config.renderer="text" renders correctly 1`] = `
 <WithStyles(Card)>
-  <p>
-    text
-  </p>
+  <div
+    className="branch"
+  >
+    <p>
+      text
+    </p>
+  </div>
 </WithStyles(Card)>
 `;
 
 exports[`when props.text="text" renders correctly 1`] = `
 <WithStyles(Card)>
-  <div>
-    text
+  <div
+    className="branch"
+  >
+    <div>
+      text
+    </div>
   </div>
 </WithStyles(Card)>
 `;
 
 exports[`when props={} renders correctly 1`] = `
 <WithStyles(Card)>
-  
+  <div
+    className="branch"
+  />
 </WithStyles(Card)>
 `;
 
 exports[`with props.choices and props.selectChoice renders correctly 1`] = `
 <WithStyles(Card)>
+  <div
+    className="branch"
+  />
   <WithStyles(Choice)
     choiceId="value1"
     selectChoice={[Function]}
