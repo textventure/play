@@ -39,7 +39,7 @@ describe('with props', () => {
   });
 
   it('passes props.selectChoice to <Choice>', () => {
-    expect(wrapper.find('Choice').prop('selectChoice')).toBe(
+    expect(wrapper.find('WithStyles(Choice)').prop('selectChoice')).toBe(
       props.selectChoice
     );
   });

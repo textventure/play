@@ -13,7 +13,7 @@ describe('with props', () => {
         className="classy"
         selectChoice={Function}
       />
-    );
+    ).dive();
   });
 
   it('renders correctly', () => {

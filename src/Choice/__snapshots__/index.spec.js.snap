@@ -2,7 +2,7 @@
 
 exports[`with props renders correctly 1`] = `
 <WithStyles(Button)
-  className="classy"
+  className="Choice-button-1 classy"
   color="primary"
   onClick={[Function]}
 >

@@ -1,7 +1,15 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
 
-export default class Choice extends Component {
+const styles = {
+  button: {
+    textAlign: 'left',
+    textTransform: 'none',
+  },
+};
+
+class Choice extends Component {
   /**
    * Selects choice.
    *
@@ -15,11 +23,18 @@ export default class Choice extends Component {
   };
 
   render() {
-    const { className, children } = this.props;
+    const { children, className, classes } = this.props;
+
     return (
-      <Button className={className} color="primary" onClick={this.handleClick}>
+      <Button
+        className={[classes.button, className].join(' ')}
+        color="primary"
+        onClick={this.handleClick}
+      >
         {children}
       </Button>
     );
   }
 }
+
+export default withStyles(styles)(Choice);

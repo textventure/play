@@ -25,13 +25,13 @@ exports[`with props renders correctly 1`] = `
       Description
     </WithStyles(Typography)>
   </div>
-  <Choice
+  <WithStyles(Choice)
     choiceId="start"
     className="button"
     selectChoice={[Function]}
   >
     Start
-  </Choice>
+  </WithStyles(Choice)>
 </WithStyles(Card)>
 `;
 
