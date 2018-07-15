@@ -8,7 +8,7 @@ const branchSelector = '.' + branchClass;
  * @return {Object}
  */
 const styles = theme => {
-  const { breakpoints, spacing, typography } = theme;
+  const { breakpoints, palette, spacing, typography } = theme;
   const marginBottom = typography.pxToRem(spacing.unit * 1.5); // 12px
 
   return {
@@ -44,6 +44,12 @@ const styles = theme => {
         },
       },
 
+      code: {
+        fontFamily: 'Consolas, "Liberation Mono", Menlo, Courier, monospace',
+        border: `1px solid ${palette.grey[400]}`,
+        borderRadius: 3,
+        padding: '3px 6px',
+      },
       em: {
         fontStyle: 'italic',
       },
