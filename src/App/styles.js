@@ -10,6 +10,9 @@ const styles = theme => {
 
   return {
     '@global': {
+      em: {
+        fontStyle: 'italic',
+      },
       h1: {
         ...typography.display3,
         marginBottom,
@@ -37,6 +40,9 @@ const styles = theme => {
       p: {
         ...typography.body1,
         marginBottom,
+      },
+      strong: {
+        fontWeight: typography.fontWeightMedium,
       },
     },
 
