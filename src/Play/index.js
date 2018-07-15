@@ -8,16 +8,6 @@ import { getStory } from '../helpers/api';
 import { getKey, getValue } from '../helpers/util';
 
 const styles = theme => ({
-  button: {
-    textAlign: 'left',
-    textTransform: 'none',
-  },
-  cardContent: {
-    marginBottom: theme.spacing.unit * 2, // 16px
-  },
-  main: {
-    display: 'block', // fix for IE 9-11
-  },
   progress: {
     marginTop: theme.spacing.unit * 4, // 32px
   },
@@ -103,10 +93,9 @@ class Play extends Component {
     const currentBranch = branches[currentBranchId];
 
     return (
-      <main className={classes.main}>
+      <main>
         {/* title */}
         <Title
-          classes={classes}
           config={config}
           displayAction={!currentBranchId}
           selectChoice={this.selectChoice}
@@ -115,9 +104,9 @@ class Play extends Component {
         {/* story */}
         {currentBranch && (
           <Branch
-            classes={classes}
             text={getKey(currentBranch)}
             choices={getValue(currentBranch)}
+            config={config}
             selectChoice={this.selectChoice}
           />
         )}

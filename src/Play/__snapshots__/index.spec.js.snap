@@ -1,18 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`when props.location.config={}, props.location.branches={}, and state.isLoading=false renders correctly 1`] = `
-<main
-  className="Play-main-3"
->
+<main>
   <Title
-    classes={
-      Object {
-        "button": "Play-button-1",
-        "cardContent": "Play-cardContent-2",
-        "main": "Play-main-3",
-        "progress": "Play-progress-4",
-      }
-    }
+    classes={Object {}}
     config={Object {}}
     displayAction={true}
     selectChoice={[Function]}
@@ -34,25 +25,16 @@ exports[`when props={} and state.isLoading=false renders correctly 1`] = `
 
 exports[`when props={} renders correctly 1`] = `
 <div
-  className="Play-progress-4"
+  className="Play-progress-1"
 >
   <WithStyles(LinearProgress) />
 </div>
 `;
 
 exports[`with props.location.branches, state.currentBranchId, and state.isLoading=false renders correctly 1`] = `
-<main
-  className="Play-main-3"
->
+<main>
   <Title
-    classes={
-      Object {
-        "button": "Play-button-1",
-        "cardContent": "Play-cardContent-2",
-        "main": "Play-main-3",
-        "progress": "Play-progress-4",
-      }
-    }
+    classes={Object {}}
     config={Object {}}
     displayAction={false}
     selectChoice={[Function]}
@@ -64,14 +46,6 @@ exports[`with props.location.branches, state.currentBranchId, and state.isLoadin
           "Choice text.": "choice",
         },
       ]
-    }
-    classes={
-      Object {
-        "button": "Play-button-1",
-        "cardContent": "Play-cardContent-2",
-        "main": "Play-main-3",
-        "progress": "Play-progress-4",
-      }
     }
     config={Object {}}
     selectChoice={[Function]}

@@ -37,6 +37,9 @@ const styles = theme => {
         ...typography.subheading,
         marginBottom,
       },
+      main: {
+        display: 'block', // fix for IE 9-11
+      },
       p: {
         ...typography.body1,
         marginBottom,
