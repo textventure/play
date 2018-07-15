@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { getStory } from '../helpers/api';
-import Play from '.';
+import Play, { defaultConfig } from '.';
 
 jest.mock('../helpers/api', () => ({
   getStory: jest.fn(),
@@ -78,10 +78,6 @@ describe('when props.location.config={}, props.location.branches={}, and state.i
     wrapper.setState({
       isLoading: false,
     });
-  });
-
-  it('renders <Title>', () => {
-    expect(wrapper.find('Title').length).toBe(1);
   });
 
   it('does not render <Branch>', () => {
@@ -164,11 +160,14 @@ describe('when props.location.search="?url=http://foo.bar"', () => {
   });
 
   describe('and fetch is successful', () => {
+    resolvedValue = {
+      _config: {
+        start: 'startId',
+      },
+      branches: {},
+    };
+
     beforeAll(() => {
-      resolvedValue = {
-        _config: {},
-        branches: {},
-      };
       getStory.mockImplementation(
         () => new Promise(resolve => resolve(resolvedValue))
       );
@@ -184,10 +183,48 @@ describe('when props.location.search="?url=http://foo.bar"', () => {
       expect(wrapper.state('isLoading')).toBe(false);
     });
 
-    it('sets state.branches and state.config', () => {
+    describe('with _config and branches', () => {
       const { _config: config, ...branches } = resolvedValue;
-      expect(wrapper.state('branches')).toEqual(branches);
-      expect(wrapper.state('config')).toEqual(config);
+
+      it('sets state.branches', () => {
+        expect(wrapper.state('branches')).toEqual(branches);
+      });
+
+      it('sets state.config', () => {
+        expect(wrapper.state('config')).toEqual({
+          ...defaultConfig,
+          ...config,
+        });
+        expect(wrapper.state('currentBranchId')).toBe(config.start);
+      });
+
+      it('sets state.currentBranchId', () => {
+        expect(wrapper.state('currentBranchId')).toBe(config.start);
+      });
+    });
+
+    describe('when _config.start=undefined', () => {
+      const resolvedValue = {
+        _config: {},
+      };
+
+      beforeAll(() => {
+        getStory.mockImplementation(
+          () => new Promise(resolve => resolve(resolvedValue))
+        );
+        // reset state
+        wrapper.setState({
+          currentBranchId: 'start',
+        });
+        wrapper.instance().componentDidMount();
+      });
+
+      it('does not set state.currentBranchId', () => {
+        expect(wrapper.state('currentBranchId')).not.toBe(
+          resolvedValue._config.start
+        );
+        expect(wrapper.state('currentBranchId')).toBe('start');
+      });
     });
   });
 
@@ -211,7 +248,7 @@ describe('when props.location.search="?url=http://foo.bar"', () => {
 
     it('does not set state.branches and state.config', () => {
       expect(wrapper.state('branches')).toBe(undefined);
-      expect(wrapper.state('config')).toBe(undefined);
+      expect(wrapper.state('config')).toEqual(defaultConfig);
     });
   });
 
@@ -234,7 +271,7 @@ describe('when props.location.search="?url=http://foo.bar"', () => {
 
     it('does not set state.branches and state.config', () => {
       expect(wrapper.state('branches')).toBe(undefined);
-      expect(wrapper.state('config')).toBe(undefined);
+      expect(wrapper.state('config')).toEqual(defaultConfig);
     });
   });
 });

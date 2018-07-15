@@ -1,15 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`when props.location.config={}, props.location.branches={}, and state.isLoading=false renders correctly 1`] = `
-<main>
-  <Title
-    classes={Object {}}
-    config={Object {}}
-    displayAction={true}
-    selectChoice={[Function]}
-  />
-</main>
-`;
+exports[`when props.location.config={}, props.location.branches={}, and state.isLoading=false renders correctly 1`] = `<main />`;
 
 exports[`when props={} and state.isLoading=false renders correctly 1`] = `
 <Redirect
@@ -33,12 +24,6 @@ exports[`when props={} renders correctly 1`] = `
 
 exports[`with props.location.branches, state.currentBranchId, and state.isLoading=false renders correctly 1`] = `
 <main>
-  <Title
-    classes={Object {}}
-    config={Object {}}
-    displayAction={false}
-    selectChoice={[Function]}
-  />
   <Branch
     choices={
       Array [
@@ -47,7 +32,12 @@ exports[`with props.location.branches, state.currentBranchId, and state.isLoadin
         },
       ]
     }
-    config={Object {}}
+    config={
+      Object {
+        "renderer": "text",
+        "start": "start",
+      }
+    }
     selectChoice={[Function]}
     text="Text."
   />

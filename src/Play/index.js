@@ -3,9 +3,13 @@ import { Redirect } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Branch from '../Branch';
-import Title from '../Title';
 import { getStory } from '../helpers/api';
 import { getKey, getValue } from '../helpers/util';
+
+export const defaultConfig = {
+  renderer: 'text',
+  start: 'start',
+};
 
 const styles = theme => ({
   progress: {
@@ -24,10 +28,13 @@ class Play extends Component {
 
     this.state = {
       branches,
-      config,
-      currentBranchId: null,
+      config: {
+        ...defaultConfig,
+        ...config,
+      },
       isLoading: true,
     };
+    this.state.currentBranchId = this.state.config.start;
   }
 
   componentDidMount() {
@@ -41,9 +48,16 @@ class Play extends Component {
           };
 
           const { _config: config, ...branches } = story;
-          if (config && branches) {
-            newState.config = config;
+          if (branches && config) {
             newState.branches = branches;
+            newState.config = {
+              ...defaultConfig,
+              ...config,
+            };
+            // set starting branch id
+            if (config.start) {
+              newState.currentBranchId = config.start;
+            }
           }
 
           this.setState(newState);
@@ -94,20 +108,12 @@ class Play extends Component {
 
     return (
       <main>
-        {/* title */}
-        <Title
-          config={config}
-          displayAction={!currentBranchId}
-          selectChoice={this.selectChoice}
-        />
-
-        {/* story */}
         {currentBranch && (
           <Branch
-            text={getKey(currentBranch)}
             choices={getValue(currentBranch)}
             config={config}
             selectChoice={this.selectChoice}
+            text={getKey(currentBranch)}
           />
         )}
       </main>
