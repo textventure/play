@@ -12,11 +12,11 @@ npm run clean
 # build production bundle
 npm run build
 
-# deploy contents in `build` to remote branch `gh-pages`
+# deploy contents in `build` to remote branch `master`
 if [[ $(command -v npx) ]]; then
-  npx --no-install gitploy build gh-pages
+  npx --no-install gitploy build master
 else
-  $(npm bin)/gitploy build gh-pages
+  $(npm bin)/gitploy build master
 fi
 
 # pop saved stash (if applicable)
