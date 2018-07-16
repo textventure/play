@@ -1,16 +1,13 @@
 #!/bin/bash
 
+# make sure working index is clean
+stash_output=$(git add . && git stash)
+
 # run lint and tests first
 npm run lint && npm test
 
-# make sure working index is clean
-stash_output=$(git stash)
-
-# remove `build` directory
-npm run clean
-
-# build production bundle
-npm run build
+# remove `build` directory and build production bundle
+npm run clean && npm run build
 
 # deploy contents in `build` to remote branch `master`
 if [[ $(command -v npx) ]]; then
