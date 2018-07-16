@@ -1,5 +1,5 @@
 import React from 'react';
-import render from './renderer';
+import render, { markedRenderer } from './renderer';
 
 describe('when format=undefined', () => {
   it('returns original string', () => {
@@ -30,17 +30,25 @@ describe('when format="markdown"', () => {
 
   beforeAll(() => {
     window.marked = jest.fn(input => input);
+    window.marked.Renderer = jest.fn();
   });
 
   afterAll(() => {
     window.marked = marked;
   });
 
-  it('calls `window.marked` with string', () => {
+  it('calls `window.marked` with string and options', () => {
     render('foo', 'markdown');
     expect(window.marked).toHaveBeenCalledWith('foo', {
       headerIds: false,
+      renderer: markedRenderer,
     });
+  });
+
+  it('extends marked link renderer method', () => {
+    expect(markedRenderer.link('href', 'title', 'text')).toBe(
+      `<a href="href" rel="noreferrer noopener" target="_blank">text</a>`
+    );
   });
 
   it('returns React element with innerHTML', () => {
