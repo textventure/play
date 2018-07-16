@@ -1,44 +1,53 @@
 _config:
   start: start
+  renderer: markdown
 
 start:
   ? |
-    Textventure Demo
+    ### Textventure Demo
 
-    Welcome to an introductory overview of textventure.
+    Welcome to an introductory overview of **textventure**.
 
-    Hit NEXT to proceed.
+    Hit `NEXT` to proceed.
   :
     - NEXT: next
 
 next:
-  Textventure is a interface for writing and playing text adventures (a.k.a. interactive fiction).:
+  Textventure is a interface for writing and playing [text adventures](https://wikipedia.org/wiki/Interactive_fiction).:
     - Tell me more.: more
     - Got it.: more
 
 more:
-  All textventure narratives (including this one) are written in YAML.:
+  All textventure scripts or narratives (including this one) are written in **YAML**.:
     - What's YAML?: yaml
-    - Ah, I see.: write
+    - I see.: write
 
 yaml:
   ? |
-    YAML (YAML Ain't Markup Language) is a human-readable data serialization language.
+    [YAML](https://wikipedia.org/wiki/YAML), abbreviated as “YAML Ain't Markup Language”, is a human-readable data serialization language.
 
-    In our case, think of it as a story script with multiple paths or branches.
+    It's the data format for writing textventure scripts/stories.
   :
-    - How can I play a text adventure?: play
-    - How can I write a text adventure?: write
-
-play:
-  To play a text adventure, simply submit a link to a valid textventure YAML file on the "/load" page.:
-    - How can I write a text adventure?: write
-    - END: end
+    - How can I _write_ a text adventure?: write
+    - How can I _play_ a text adventure?: play
 
 write:
-  To write a text adventure, check out "/demo.yaml" to get an idea.:
-    - How can I play my own text adventure?: play
+  ? |
+    To write a text adventure, you need to create and upload a YAML script to somewhere that's accessible on the web (e.g., [gist](https://gist.github.com)).
+
+    To get an idea of how a script should look like, see [`demo.yaml`](/demo.yaml).
+
+    (Also, you can validate your YAML file at [yaml-json-repl](https://remarkablemark.org/yaml-json-repl/).)
+  :
+    - How can I _play_ a text adventure?: play
     - END: end
 
-end:
-  This concludes the textventure demo. Thank you for playing!
+play:
+  To play a text adventure, navigate to [`/load`](/load) and submit a link to a valid textventure YAML file.:
+    - How can I _write_ a text adventure?: write
+    - END: end
+
+end: |
+  This concludes the demo. Thanks for playing!
+
+  Go [home](/) or [load](/load) another text adventure.
