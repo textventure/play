@@ -9,11 +9,11 @@ npm run lint && npm test
 # remove `build` directory and build production bundle
 npm run clean && npm run build
 
-# deploy contents in `build` to remote branch `master`
+# deploy contents in `build` to remote branch `gh-pages`
 if [[ $(command -v npx) ]]; then
-  npx --no-install gitploy build master
+  npx --no-install gitploy build gh-pages
 else
-  $(npm bin)/gitploy build master
+  $(npm bin)/gitploy build gh-pages
 fi
 
 # pop saved stash (if applicable)
