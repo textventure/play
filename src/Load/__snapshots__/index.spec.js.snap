@@ -31,7 +31,7 @@ exports[`when state.message="Message" renders correctly 1`] = `
       margin="normal"
       name="url"
       onChange={[Function]}
-      placeholder="http://localhost/demo.yaml"
+      placeholder="/demo.yaml"
       required={true}
       select={false}
       spellCheck={false}
@@ -92,7 +92,7 @@ exports[`without props renders correctly 1`] = `
       margin="normal"
       name="url"
       onChange={[Function]}
-      placeholder="http://localhost/demo.yaml"
+      placeholder="/demo.yaml"
       required={true}
       select={false}
       spellCheck={false}

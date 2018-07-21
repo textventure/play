@@ -31,9 +31,7 @@ describe('without props', () => {
   });
 
   it('renders <TextField> with placeholder', () => {
-    expect(wrapper.find('TextField').prop('placeholder')).toBe(
-      'http://localhost/demo.yaml'
-    );
+    expect(wrapper.find('TextField').prop('placeholder')).toBe('/demo.yaml');
   });
 
   it('renders correctly', () => {
