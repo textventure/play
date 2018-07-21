@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
@@ -12,7 +12,7 @@ class App extends Component {
   render() {
     const { classes } = this.props;
     return (
-      <Router>
+      <Router basename={process.env.PUBLIC_URL}>
         <CssBaseline>
           <Grid container justify="center">
             <Grid item xs={12} className={classes.grid}>
