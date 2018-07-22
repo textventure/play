@@ -1,3 +1,7 @@
+const options = {
+  mode: 'cors',
+};
+
 /**
  * Gets story from URL.
  *
@@ -5,7 +9,7 @@
  * @return {Promise}
  */
 export const getStory = url => {
-  return fetch(url)
+  return fetch(url, options)
     .then(response => {
       if (response.ok) {
         return response.text();

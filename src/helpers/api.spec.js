@@ -13,6 +13,15 @@ afterAll(() => {
 });
 
 describe('getStory', () => {
+  it('calls fetch with url and options', () => {
+    window.fetch.mockImplementationOnce(() => Promise.reject({}));
+    return getStory('url').catch(error => {
+      expect(window.fetch).toHaveBeenCalledWith('url', {
+        mode: 'cors',
+      });
+    });
+  });
+
   describe('when response.ok=false', () => {
     it('throws error with status text', () => {
       window.fetch.mockImplementationOnce(() =>
