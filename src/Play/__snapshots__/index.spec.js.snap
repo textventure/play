@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`when props.location.config={}, props.location.branches={}, and state.isLoading=false renders correctly 1`] = `<main />`;
+exports[`when props.config={}, props.branches={}, and state.isLoading=false renders correctly 1`] = `<main />`;
 
 exports[`when props={} and state.isLoading=false renders correctly 1`] = `<Load />`;
 
@@ -12,7 +12,7 @@ exports[`when props={} renders correctly 1`] = `
 </div>
 `;
 
-exports[`with props.location.branches, state.currentBranchId, and state.isLoading=false renders correctly 1`] = `
+exports[`with props and state renders correctly 1`] = `
 <main>
   <Branch
     choices={

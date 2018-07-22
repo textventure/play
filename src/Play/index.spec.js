@@ -66,13 +66,11 @@ describe('when window.location.search="?foo" and state.isLoading=false', () => {
   });
 });
 
-describe('when props.location.config={}, props.location.branches={}, and state.isLoading=false', () => {
+describe('when props.config={}, props.branches={}, and state.isLoading=false', () => {
   beforeAll(() => {
     props = {
-      location: {
-        branches: {},
-        config: {},
-      },
+      branches: {},
+      config: {},
     };
     wrapper = shallow(<Play {...props} />).dive();
     wrapper.setState({
@@ -89,23 +87,22 @@ describe('when props.location.config={}, props.location.branches={}, and state.i
   });
 });
 
-describe('with props.location.branches, state.currentBranchId, and state.isLoading=false', () => {
+describe('with props and state', () => {
   beforeAll(() => {
     const currentBranchId = 'branchId';
     props = {
-      location: {
-        branches: {
-          [currentBranchId]: {
-            'Text.': [
-              {
-                'Choice text.': 'choice',
-              },
-            ],
-          },
+      branches: {
+        [currentBranchId]: {
+          'Text.': [
+            {
+              'Choice text.': 'choice',
+            },
+          ],
         },
-        config: {},
       },
+      config: {},
     };
+
     wrapper = shallow(<Play {...props} />).dive();
     wrapper.setState({
       currentBranchId,

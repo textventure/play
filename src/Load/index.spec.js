@@ -259,10 +259,9 @@ describe('onSubmit', () => {
 
     it('renders <Play> with props', () => {
       const { _config: config, ...branches } = resolvedValue;
-      expect(wrapper.find('WithStyles(Play)').prop('location')).toEqual({
-        branches,
-        config,
-      });
+      const play = wrapper.find('WithStyles(Play)');
+      expect(play.prop('branches')).toEqual(branches);
+      expect(play.prop('config')).toEqual(config);
     });
   });
 

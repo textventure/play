@@ -18,13 +18,9 @@ const styles = theme => ({
 });
 
 class Play extends Component {
-  static defaultProps = {
-    location: {},
-  };
-
   constructor(props) {
     super(props);
-    const { branches, config } = props.location;
+    const { branches, config } = props;
 
     this.state = {
       branches,

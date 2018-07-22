@@ -90,14 +90,7 @@ export default class Load extends Component {
     const { branches, config, value } = this.state;
     if (branches && config) {
       window.history.pushState({}, '', `?url=${encodeURIComponent(value)}`);
-      return (
-        <Play
-          location={{
-            branches,
-            config,
-          }}
-        />
-      );
+      return <Play branches={branches} config={config} />;
     }
 
     const { error, message } = this.state;

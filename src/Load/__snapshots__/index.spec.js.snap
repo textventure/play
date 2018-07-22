@@ -54,12 +54,8 @@ exports[`when state.message="Message" renders correctly 1`] = `
 
 exports[`with state.branches and state.config and state.value="http://foo.bar" renders correctly 1`] = `
 <WithStyles(Play)
-  location={
-    Object {
-      "branches": Object {},
-      "config": Object {},
-    }
-  }
+  branches={Object {}}
+  config={Object {}}
 />
 `;
 
