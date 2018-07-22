@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { getStory } from '../helpers/api';
+import { defineProperty } from '../helpers/test-util';
 import Load from '.';
 
 jest.mock('../helpers/api', () => ({
@@ -51,20 +52,12 @@ describe('when window.location.search="?url=http://foo.bar"', () => {
         }
       },
     }));
-
-    Object.defineProperty(window.location, 'search', {
-      value: '?url=http://foo.bar',
-      writable: true,
-    });
-
+    defineProperty(window.location, 'search', '?url=http://foo.bar');
     wrapper = shallow(<Load />);
   });
 
   afterAll(() => {
-    Object.defineProperty(window.location, 'search', {
-      value: search,
-      writable: true,
-    });
+    defineProperty(window.location, 'search', search);
   });
 
   it('sets state.value', () => {

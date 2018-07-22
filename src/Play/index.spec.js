@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { getStory } from '../helpers/api';
+import { defineProperty } from '../helpers/test-util';
 import Play, { defaultConfig } from '.';
 
 jest.mock('../helpers/api', () => ({
@@ -58,19 +59,13 @@ describe('when window.location.search="" and state.isLoading=true', () => {
         }
       },
     }));
-    Object.defineProperty(window.location, 'search', {
-      value: '',
-      writable: true,
-    });
+    defineProperty(window.location, 'search', '');
     wrapper = shallow(<Play />).dive();
   });
 
   afterAll(() => {
     window.URLSearchParams = URLSearchParams;
-    Object.defineProperty(window.location, 'search', {
-      value: search,
-      writable: true,
-    });
+    defineProperty(window.location, 'search', search);
   });
 
   it('sets isLoading to false', () => {
@@ -84,10 +79,7 @@ describe('when window.location.search="" and state.isLoading=true', () => {
 
 describe('when window.location.search="?foo" and state.isLoading=false', () => {
   beforeAll(() => {
-    Object.defineProperty(window.location, 'search', {
-      value: '?foo',
-      writable: true,
-    });
+    defineProperty(window.location, 'search', '?foo');
     wrapper = shallow(<Play />).dive();
     wrapper.setState({
       isLoading: false,
@@ -95,10 +87,7 @@ describe('when window.location.search="?foo" and state.isLoading=false', () => {
   });
 
   afterAll(() => {
-    Object.defineProperty(window.location, 'search', {
-      value: search,
-      configurable: true,
-    });
+    defineProperty(window.location, 'search', search);
   });
 
   it('renders <Load>', () => {
@@ -203,10 +192,7 @@ describe('when window.location.search="?url=http://foo.bar"', () => {
       getStory.mockImplementationOnce(
         () => new Promise(resolve => resolve(resolvedValue))
       );
-      Object.defineProperty(window.location, 'search', {
-        value: '?url=http://foo.bar',
-        writable: true,
-      });
+      defineProperty(window.location, 'search', '?url=http://foo.bar');
       wrapper = shallow(<Play />).dive();
     });
 
