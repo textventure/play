@@ -40,6 +40,12 @@ class Play extends Component {
   componentDidMount() {
     try {
       const url = new URLSearchParams(window.location.search).get('url');
+      if (!url) {
+        this.setState({
+          isLoading: false,
+        });
+        return;
+      }
 
       getStory(url)
         .then(story => {
