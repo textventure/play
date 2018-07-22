@@ -14,7 +14,6 @@ const { search } = window.location;
 
 afterAll(() => {
   jest.unmock('../helpers/api');
-  window.location.search = search;
 });
 
 describe('when props={}', () => {
@@ -48,9 +47,47 @@ describe('when props={} and state.isLoading=false', () => {
   });
 });
 
+describe('when window.location.search="" and state.isLoading=true', () => {
+  const { URLSearchParams } = window;
+
+  beforeAll(() => {
+    window.URLSearchParams = jest.fn(search => ({
+      get: param => {
+        if (!search && param === 'url') {
+          return null;
+        }
+      },
+    }));
+    Object.defineProperty(window.location, 'search', {
+      value: '',
+      writable: true,
+    });
+    wrapper = shallow(<Play />).dive();
+  });
+
+  afterAll(() => {
+    window.URLSearchParams = URLSearchParams;
+    Object.defineProperty(window.location, 'search', {
+      value: search,
+      writable: true,
+    });
+  });
+
+  it('sets isLoading to false', () => {
+    expect(wrapper.state('isLoading')).toBe(false);
+  });
+
+  it('renders <Load>', () => {
+    expect(wrapper.find('Load').length).toBe(1);
+  });
+});
+
 describe('when window.location.search="?foo" and state.isLoading=false', () => {
   beforeAll(() => {
-    window.location.search = '?foo';
+    Object.defineProperty(window.location, 'search', {
+      value: '?foo',
+      writable: true,
+    });
     wrapper = shallow(<Play />).dive();
     wrapper.setState({
       isLoading: false,
@@ -58,7 +95,10 @@ describe('when window.location.search="?foo" and state.isLoading=false', () => {
   });
 
   afterAll(() => {
-    window.location.search = search;
+    Object.defineProperty(window.location, 'search', {
+      value: search,
+      configurable: true,
+    });
   });
 
   it('renders <Load>', () => {
@@ -165,7 +205,7 @@ describe('when window.location.search="?url=http://foo.bar"', () => {
       );
       Object.defineProperty(window.location, 'search', {
         value: '?url=http://foo.bar',
-        configurable: true,
+        writable: true,
       });
       wrapper = shallow(<Play />).dive();
     });

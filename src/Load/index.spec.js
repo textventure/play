@@ -54,7 +54,7 @@ describe('when window.location.search="?url=http://foo.bar"', () => {
 
     Object.defineProperty(window.location, 'search', {
       value: '?url=http://foo.bar',
-      configurable: true,
+      writable: true,
     });
 
     wrapper = shallow(<Load />);
@@ -63,7 +63,7 @@ describe('when window.location.search="?url=http://foo.bar"', () => {
   afterAll(() => {
     Object.defineProperty(window.location, 'search', {
       value: search,
-      configurable: true,
+      writable: true,
     });
   });
 
