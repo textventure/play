@@ -35,7 +35,7 @@ write:
   ? |
     To write a text adventure, you need to create and upload a YAML script to somewhere that's accessible on the web (e.g., [gist](https://gist.github.com)).
 
-    To get an idea of how a script should look like, see [`demo.yaml`](/demo.yaml).
+    To get an idea of how a script should look like, see [`demo.yaml`](demo.yaml).
 
     (Also, you can validate your YAML file at [yaml-json-repl](https://remarkablemark.org/yaml-json-repl/).)
   :
@@ -43,11 +43,11 @@ write:
     - END: end
 
 play:
-  To play a text adventure, navigate to [`/load`](/load) and submit a link to a valid textventure YAML file.:
+  To play a text adventure, go to [`/play`](.) and submit a link to a valid textventure YAML file.:
     - How can I _write_ a text adventure?: write
     - END: end
 
 end: |
-  This concludes the demo. Thanks for playing!
+  This concludes the demo.
 
-  Go [home](/) or [load](/load) another text adventure.
+  Go [play](.) a text adventure!
