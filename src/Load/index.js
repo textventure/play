@@ -11,7 +11,8 @@ const initialState = {
   error: '',
   value: '',
 };
-const placeholder = process.env.PUBLIC_URL + '/demo.yaml';
+const placeholder =
+  window.location.origin + process.env.PUBLIC_URL + '/demo.yaml';
 
 export default class Load extends Component {
   constructor(props) {
