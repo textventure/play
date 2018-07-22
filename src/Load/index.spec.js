@@ -8,7 +8,6 @@ jest.mock('../helpers/api', () => ({
 }));
 
 let wrapper;
-let props;
 let state;
 let event;
 
@@ -39,7 +38,9 @@ describe('without props', () => {
   });
 });
 
-describe('when props.location.search="?url=http://foo.bar"', () => {
+describe('when window.location.search="?url=http://foo.bar"', () => {
+  const { search } = window.location;
+
   beforeAll(() => {
     window.URLSearchParams.mockImplementation(search => ({
       get: param => {
@@ -48,18 +49,24 @@ describe('when props.location.search="?url=http://foo.bar"', () => {
         }
       },
     }));
-    props = {
-      location: {
-        search: '?url=http://foo.bar',
-      },
-    };
-    wrapper = shallow(<Load {...props} />);
+
+    Object.defineProperty(window.location, 'search', {
+      value: '?url=http://foo.bar',
+      configurable: true,
+    });
+
+    wrapper = shallow(<Load />);
+  });
+
+  afterAll(() => {
+    Object.defineProperty(window.location, 'search', {
+      value: search,
+      configurable: true,
+    });
   });
 
   it('sets state.value', () => {
-    expect(wrapper.state('value')).toBe(
-      props.location.search.replace('?url=', '')
-    );
+    expect(wrapper.state('value')).toBe('http://foo.bar');
   });
 });
 
@@ -73,16 +80,8 @@ describe('with state.branches and state.config', () => {
     wrapper.setState(state);
   });
 
-  it('renders <Redirect>', () => {
-    expect(wrapper.find('Redirect').length).toBe(1);
-  });
-
-  it('redirects to "/play"', () => {
-    expect(wrapper.find('Redirect').prop('to')).toEqual({
-      ...state,
-      pathname: '/play',
-      search: 'url=',
-    });
+  it('renders <Play>', () => {
+    expect(wrapper.find('WithStyles(Play)').length).toBe(1);
   });
 
   describe('and state.value="http://foo.bar"', () => {
@@ -210,6 +209,7 @@ describe('onSubmit', () => {
       getStory.mockImplementation(
         () => new Promise(resolve => resolve(resolvedValue))
       );
+      jest.spyOn(window.history, 'pushState');
 
       wrapper = shallow(<Load />);
       state = {
@@ -221,6 +221,10 @@ describe('onSubmit', () => {
         preventDefault: jest.fn(),
       };
       wrapper.find('form').simulate('submit', event);
+    });
+
+    afterAll(() => {
+      window.history.pushState.mockRestore();
     });
 
     it('prevents default event', () => {
@@ -238,15 +242,24 @@ describe('onSubmit', () => {
       expect(wrapper.state('config')).toEqual(config);
     });
 
-    it('redirects to "/play"', () => {
-      wrapper.update();
-      const { _config: config, ...branches } = resolvedValue;
+    it('calls window.history.pushState with query string', () => {
+      expect(window.history.pushState).toHaveBeenCalledWith(
+        {},
+        '',
+        `?url=${encodeURIComponent(wrapper.state('value'))}`
+      );
+    });
 
-      expect(wrapper.find('Redirect').prop('to')).toEqual({
+    it('renders <Play>', () => {
+      wrapper.update();
+      expect(wrapper.find('WithStyles(Play)').length).toBe(1);
+    });
+
+    it('renders <Play> with props', () => {
+      const { _config: config, ...branches } = resolvedValue;
+      expect(wrapper.find('WithStyles(Play)').prop('location')).toEqual({
         branches,
         config,
-        pathname: '/play',
-        search: `url=${encodeURIComponent(state.value)}`,
       });
     });
   });

@@ -10,8 +10,11 @@ jest.mock('../helpers/api', () => ({
 let wrapper;
 let props;
 
+const { search } = window.location;
+
 afterAll(() => {
   jest.unmock('../helpers/api');
+  window.location.search = search;
 });
 
 describe('when props={}', () => {
@@ -36,8 +39,8 @@ describe('when props={} and state.isLoading=false', () => {
     });
   });
 
-  it('renders <Redirect>', () => {
-    expect(wrapper.find('Redirect').length).toBe(1);
+  it('renders <Load>', () => {
+    expect(wrapper.find('Load').length).toBe(1);
   });
 
   it('renders correctly', () => {
@@ -45,24 +48,21 @@ describe('when props={} and state.isLoading=false', () => {
   });
 });
 
-describe('when props.location.search="?foo" and state.isLoading=false', () => {
+describe('when window.location.search="?foo" and state.isLoading=false', () => {
   beforeAll(() => {
-    props = {
-      location: {
-        search: '?foo',
-      },
-    };
-    wrapper = shallow(<Play {...props} />).dive();
+    window.location.search = '?foo';
+    wrapper = shallow(<Play />).dive();
     wrapper.setState({
       isLoading: false,
     });
   });
 
-  it('redirects to `/load` with query string', () => {
-    expect(wrapper.find('Redirect').prop('to')).toEqual({
-      pathname: '/load',
-      search: props.location.search,
-    });
+  afterAll(() => {
+    window.location.search = search;
+  });
+
+  it('renders <Load>', () => {
+    expect(wrapper.find('Load').length).toBe(1);
   });
 });
 
@@ -134,11 +134,12 @@ describe('when selectChoice is invoked', () => {
   });
 });
 
-describe('when props.location.search="?url=http://foo.bar"', () => {
+describe('when window.location.search="?url=http://foo.bar"', () => {
   const { URLSearchParams } = window;
   let resolvedValue;
 
   beforeAll(() => {
+    window.location.search = '?url=http://foo.bar';
     window.URLSearchParams = jest.fn(search => ({
       get: param => {
         const match = search.match(new RegExp(param + '=(.+)'));
@@ -147,12 +148,6 @@ describe('when props.location.search="?url=http://foo.bar"', () => {
         }
       },
     }));
-
-    props = {
-      location: {
-        search: '?url=http://foo.bar',
-      },
-    };
   });
 
   afterAll(() => {
@@ -168,11 +163,14 @@ describe('when props.location.search="?url=http://foo.bar"', () => {
     };
 
     beforeAll(() => {
-      getStory.mockImplementation(
+      getStory.mockImplementationOnce(
         () => new Promise(resolve => resolve(resolvedValue))
       );
-
-      wrapper = shallow(<Play {...props} />).dive();
+      Object.defineProperty(window.location, 'search', {
+        value: '?url=http://foo.bar',
+        configurable: true,
+      });
+      wrapper = shallow(<Play />).dive();
     });
 
     it('calls `getStory` with url', () => {
@@ -209,7 +207,7 @@ describe('when props.location.search="?url=http://foo.bar"', () => {
       };
 
       beforeAll(() => {
-        getStory.mockImplementation(
+        getStory.mockImplementationOnce(
           () => new Promise(resolve => resolve(resolvedValue))
         );
         // reset state
@@ -231,11 +229,10 @@ describe('when props.location.search="?url=http://foo.bar"', () => {
   describe('and fetch responds with nothing', () => {
     beforeAll(() => {
       resolvedValue = {};
-      getStory.mockImplementation(
+      getStory.mockImplementationOnce(
         () => new Promise(resolve => resolve(resolvedValue))
       );
-
-      wrapper = shallow(<Play {...props} />).dive();
+      wrapper = shallow(<Play />).dive();
     });
 
     it('calls `getStory` with url', () => {
@@ -246,19 +243,21 @@ describe('when props.location.search="?url=http://foo.bar"', () => {
       expect(wrapper.state('isLoading')).toBe(false);
     });
 
-    it('does not set state.branches and state.config', () => {
+    it('does not set state.branches', () => {
       expect(wrapper.state('branches')).toBe(undefined);
+    });
+
+    it('does not set state.config', () => {
       expect(wrapper.state('config')).toEqual(defaultConfig);
     });
   });
 
   describe('and fetch is unsuccessful', () => {
     beforeAll(() => {
-      getStory.mockImplementation(
+      getStory.mockImplementationOnce(
         () => new Promise((resolve, reject) => reject())
       );
-
-      wrapper = shallow(<Play {...props} />).dive();
+      wrapper = shallow(<Play />).dive();
     });
 
     it('calls `getStory` with url', () => {
@@ -269,8 +268,11 @@ describe('when props.location.search="?url=http://foo.bar"', () => {
       expect(wrapper.state('isLoading')).toBe(false);
     });
 
-    it('does not set state.branches and state.config', () => {
+    it('does not set state.branches', () => {
       expect(wrapper.state('branches')).toBe(undefined);
+    });
+
+    it('does not set state.config', () => {
       expect(wrapper.state('config')).toEqual(defaultConfig);
     });
   });

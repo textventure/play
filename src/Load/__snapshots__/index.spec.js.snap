@@ -53,14 +53,11 @@ exports[`when state.message="Message" renders correctly 1`] = `
 `;
 
 exports[`with state.branches and state.config and state.value="http://foo.bar" renders correctly 1`] = `
-<Redirect
-  push={false}
-  to={
+<WithStyles(Play)
+  location={
     Object {
       "branches": Object {},
       "config": Object {},
-      "pathname": "/play",
-      "search": "url=http%3A%2F%2Ffoo.bar",
     }
   }
 />

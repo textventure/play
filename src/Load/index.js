@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Card from '../Card';
+import Play from '../Play';
 import { getStory } from '../helpers/api';
 
 const initialState = {
@@ -24,7 +24,7 @@ export default class Load extends Component {
     };
 
     try {
-      const url = new URLSearchParams(props.location.search).get('url');
+      const url = new URLSearchParams(window.location.search).get('url');
       if (url) {
         this.state.value = url;
       }
@@ -88,13 +88,12 @@ export default class Load extends Component {
   render() {
     const { branches, config, value } = this.state;
     if (branches && config) {
+      window.history.pushState({}, '', `?url=${encodeURIComponent(value)}`);
       return (
-        <Redirect
-          to={{
+        <Play
+          location={{
             branches,
             config,
-            pathname: '/play',
-            search: `url=${encodeURIComponent(value)}`,
           }}
         />
       );

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Branch from '../Branch';
+import Load from '../Load';
 import { getStory } from '../helpers/api';
 import { getKey, getValue } from '../helpers/util';
 
@@ -39,7 +39,7 @@ class Play extends Component {
 
   componentDidMount() {
     try {
-      const url = new URLSearchParams(this.props.location.search).get('url');
+      const url = new URLSearchParams(window.location.search).get('url');
 
       getStory(url)
         .then(story => {
@@ -82,7 +82,7 @@ class Play extends Component {
   };
 
   render() {
-    const { classes, location } = this.props;
+    const { classes } = this.props;
     const { branches, config, currentBranchId, isLoading } = this.state;
 
     if (isLoading) {
@@ -94,14 +94,7 @@ class Play extends Component {
     }
 
     if (!branches || !config) {
-      return (
-        <Redirect
-          to={{
-            pathname: '/load',
-            search: location.search,
-          }}
-        />
-      );
+      return <Load />;
     }
 
     const currentBranch = branches[currentBranchId];
