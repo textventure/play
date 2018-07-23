@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.2.0"></a>
+# [0.2.0](https://github.com/textventure/textventure.github.io/compare/v0.1.0...v0.2.0) (2018-07-23)
+
+
+### Bug Fixes
+
+* **helpers:** enable mode cors when fetching url in `getStory` ([8728d7d](https://github.com/textventure/textventure.github.io/commit/8728d7d))
+* **load:** prepend the location origin to the placeholder url ([bb2922f](https://github.com/textventure/textventure.github.io/commit/bb2922f))
+* **load:** update public url for demo placeholder ([c97e692](https://github.com/textventure/textventure.github.io/commit/c97e692))
+* **play:** do not fetch if url is null on mount ([194992d](https://github.com/textventure/textventure.github.io/commit/194992d))
+* **public:** update the links in demo.yaml ([b9a422e](https://github.com/textventure/textventure.github.io/commit/b9a422e))
+
+
+### Features
+
+* **app:** replace BrowserRouter with HashRouter and set basename ([c2b042c](https://github.com/textventure/textventure.github.io/commit/c2b042c))
+* **src:** remove react-router from app and update tests ([86983f6](https://github.com/textventure/textventure.github.io/commit/86983f6))
+
+
+
 <a name="0.1.0"></a>
 # 0.1.0 (2018-07-16)
 
