@@ -1,7 +1,7 @@
 {
-  "name": "textventure",
+  "name": "textventure-play",
   "version": "0.2.0",
-  "description": "Text adventure interface.",
+  "description": "A user interface (UI) for text adventures.",
   "author": "Mark <mark@remarkablemark.org>",
   "scripts": {
     "build": "NODE_ENV=production react-app-rewired build",
