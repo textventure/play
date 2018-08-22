@@ -8,39 +8,41 @@ const branchSelector = '.' + branchClass;
  * @return {Object}
  */
 const styles = theme => {
-  const { breakpoints, palette, spacing, typography } = theme;
-  const marginBottom = typography.pxToRem(spacing.unit * 1.5); // 12px
+  const { palette, spacing, typography } = theme;
+  const { pxToRem } = typography;
+  const marginBottom1 = pxToRem(spacing.unit);
+  const marginBottom2 = pxToRem(spacing.unit * 2);
 
   return {
     '@global': {
       [branchSelector]: {
         '& h1': {
           ...typography.display3,
-          marginBottom,
+          marginBottom: marginBottom2,
         },
         '& h2': {
           ...typography.display2,
-          marginBottom,
+          marginBottom: marginBottom2,
         },
         '& h3': {
           ...typography.display1,
-          marginBottom,
+          marginBottom: marginBottom2,
         },
         '& h4': {
           ...typography.headline,
-          marginBottom,
+          marginBottom: marginBottom2,
         },
         '& h5': {
           ...typography.title,
-          marginBottom,
+          marginBottom: marginBottom2,
         },
         '& h6': {
           ...typography.subheading,
-          marginBottom,
+          marginBottom: marginBottom2,
         },
         '& p': {
           ...typography.body1,
-          marginBottom,
+          marginBottom: marginBottom1,
         },
       },
 
@@ -62,7 +64,7 @@ const styles = theme => {
     },
 
     grid: {
-      maxWidth: breakpoints.width('sm'), // 600px
+      maxWidth: 720,
     },
   };
 };
