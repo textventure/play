@@ -14,7 +14,7 @@ exports[`when props={} renders correctly 1`] = `
 
 exports[`with props and state renders correctly 1`] = `
 <main>
-  <Branch
+  <WithStyles(Branch)
     choices={
       Array [
         Object {

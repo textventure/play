@@ -37,21 +37,25 @@ exports[`with props.choices and props.selectChoice renders correctly 1`] = `
   <div
     className="branch"
   />
-  <WithStyles(Choice)
-    choiceId="value1"
-    selectChoice={[Function]}
+  <div
+    className="Branch-choices-1"
   >
-    <span>
-      key1
-    </span>
-  </WithStyles(Choice)>
-  <WithStyles(Choice)
-    choiceId="value2"
-    selectChoice={[Function]}
-  >
-    <span>
-      key2
-    </span>
-  </WithStyles(Choice)>
+    <WithStyles(Choice)
+      choiceId="value1"
+      selectChoice={[Function]}
+    >
+      <span>
+        key1
+      </span>
+    </WithStyles(Choice)>
+    <WithStyles(Choice)
+      choiceId="value2"
+      selectChoice={[Function]}
+    >
+      <span>
+        key2
+      </span>
+    </WithStyles(Choice)>
+  </div>
 </WithStyles(Card)>
 `;

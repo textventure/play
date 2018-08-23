@@ -140,7 +140,7 @@ describe('with props and state', () => {
   });
 
   it('renders <Branch>', () => {
-    expect(wrapper.find('Branch').length).toBe(1);
+    expect(wrapper.find('WithStyles(Branch)').length).toBe(1);
   });
 
   it('renders correctly', () => {

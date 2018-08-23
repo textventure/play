@@ -7,7 +7,7 @@ let props;
 
 describe('when props={}', () => {
   beforeAll(() => {
-    wrapper = shallow(<Branch />);
+    wrapper = shallow(<Branch />).dive();
   });
 
   it('renders correctly', () => {
@@ -17,7 +17,7 @@ describe('when props={}', () => {
 
 describe('when props.text="text"', () => {
   beforeAll(() => {
-    wrapper = shallow(<Branch text="text" />);
+    wrapper = shallow(<Branch text="text" />).dive();
   });
 
   it('renders correctly', () => {
@@ -45,7 +45,7 @@ describe('with props.choices and props.selectChoice', () => {
       choices: [{ key1: 'value1' }, { key2: 'value2' }],
       selectChoice: Function,
     };
-    wrapper = shallow(<Branch {...props} />);
+    wrapper = shallow(<Branch {...props} />).dive();
   });
 
   it('renders correctly', () => {
