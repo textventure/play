@@ -15,6 +15,11 @@ const styles = theme => {
     spacing: {
       margin: spacingUnit * 2, // 16px
       padding: spacingUnit * 3, // 24px
+
+      // @media (min-width: 600px)
+      [theme.breakpoints.up('md')]: {
+        margin: spacingUnit * 4, // 32px
+      },
     },
     'pre-line': {
       // preserve new lines, collapse spaces and tabs, allow text wrapping
