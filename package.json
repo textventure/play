@@ -19,6 +19,7 @@
   },
   "homepage": "https://textventure.github.io/play",
   "devDependencies": {
+    "@babel/runtime": "7.0.0-beta.55",
     "@commitlint/cli": "6.2.0",
     "@commitlint/config-conventional": "6.1.3",
     "@material-ui/core": "1.2.0",
