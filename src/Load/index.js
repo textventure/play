@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Card from '../Card';
 import Play from '../Play';
 import { getStory } from '../helpers/api';
+import { searchParams } from '../helpers/url';
 
 const initialState = {
   error: '',
@@ -24,12 +25,10 @@ export default class Load extends Component {
       message: '',
     };
 
-    try {
-      const url = new URLSearchParams(window.location.search).get('url');
-      if (url) {
-        this.state.value = url;
-      }
-    } catch (error) {}
+    const url = searchParams(window.location.search, 'url');
+    if (url) {
+      this.state.value = url;
+    }
   }
 
   /**

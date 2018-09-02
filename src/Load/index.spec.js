@@ -12,16 +12,14 @@ let wrapper;
 let state;
 let event;
 
-const { URL, URLSearchParams } = window;
+const { URL } = window;
 
 beforeAll(() => {
   window.URL = jest.fn();
-  window.URLSearchParams = jest.fn();
 });
 
 afterAll(() => {
   window.URL = URL;
-  window.URLSearchParams = URLSearchParams;
   jest.unmock('../helpers/api');
 });
 
@@ -45,13 +43,6 @@ describe('when window.location.search="?url=http://foo.bar"', () => {
   const { search } = window.location;
 
   beforeAll(() => {
-    window.URLSearchParams.mockImplementation(search => ({
-      get: param => {
-        if (param === 'url') {
-          return search.replace('?url=', '');
-        }
-      },
-    }));
     defineProperty(window.location, 'search', '?url=http://foo.bar');
     wrapper = shallow(<Load />);
   });
