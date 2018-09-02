@@ -1,20 +1,47 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { getStory } from '../helpers/api';
-import { defineProperty } from '../helpers/test-util';
+import browserHistory from '../helpers/history';
 import Play, { defaultConfig } from '.';
 
 jest.mock('../helpers/api', () => ({
   getStory: jest.fn(),
 }));
 
-let wrapper;
-let props;
+jest.mock('../helpers/history', () => ({
+  location: {},
+  listen: jest.fn(),
+}));
 
-const { search } = window.location;
+let instance;
+let props;
+let wrapper;
+
+const { URLSearchParams } = window;
+
+beforeAll(() => {
+  window.URLSearchParams = jest.fn(search => ({
+    /**
+     * The get() method of the URLSearchParams interface returns the first
+     * value associated to the given search parameter.
+     *
+     * @see {@link https://developer.mozilla.org/docs/Web/API/URLSearchParams/get URLSearchParams.get()}
+     *
+     * @param  {String}      [param]
+     * @retrun {String|null}
+     */
+    get: param => {
+      if (!search) return null;
+      const match = search.match(new RegExp(param + '=(.+)'));
+      if (match instanceof Array) return match[1];
+    },
+  }));
+});
 
 afterAll(() => {
   jest.unmock('../helpers/api');
+  jest.unmock('../helpers/history');
+  window.URLSearchParams = URLSearchParams;
 });
 
 describe('when props={}', () => {
@@ -22,12 +49,26 @@ describe('when props={}', () => {
     wrapper = shallow(<Play />).dive();
   });
 
-  it('renders <LinearProgress>', () => {
-    expect(wrapper.find('WithStyles(LinearProgress)').length).toBe(1);
+  it('renders <Load>', () => {
+    expect(wrapper.find('Load').length).toBe(1);
   });
 
   it('renders correctly', () => {
     expect(wrapper.getElement()).toMatchSnapshot();
+  });
+
+  describe('and state.isLoading=true', () => {
+    beforeAll(() => {
+      wrapper.setState({ isLoading: true });
+    });
+
+    it('renders <LinearProgress>', () => {
+      expect(wrapper.find('WithStyles(LinearProgress)').length).toBe(1);
+    });
+
+    it('renders correctly', () => {
+      expect(wrapper.getElement()).toMatchSnapshot();
+    });
   });
 });
 
@@ -49,23 +90,9 @@ describe('when props={} and state.isLoading=false', () => {
 });
 
 describe('when window.location.search="" and state.isLoading=true', () => {
-  const { URLSearchParams } = window;
-
   beforeAll(() => {
-    window.URLSearchParams = jest.fn(search => ({
-      get: param => {
-        if (!search && param === 'url') {
-          return null;
-        }
-      },
-    }));
-    defineProperty(window.location, 'search', '');
+    browserHistory.location.search = '';
     wrapper = shallow(<Play />).dive();
-  });
-
-  afterAll(() => {
-    window.URLSearchParams = URLSearchParams;
-    defineProperty(window.location, 'search', search);
   });
 
   it('sets isLoading to false', () => {
@@ -79,7 +106,7 @@ describe('when window.location.search="" and state.isLoading=true', () => {
 
 describe('when window.location.search="?foo" and state.isLoading=false', () => {
   beforeAll(() => {
-    defineProperty(window.location, 'search', '?foo');
+    browserHistory.location.search = '?foo';
     wrapper = shallow(<Play />).dive();
     wrapper.setState({
       isLoading: false,
@@ -87,7 +114,7 @@ describe('when window.location.search="?foo" and state.isLoading=false', () => {
   });
 
   afterAll(() => {
-    defineProperty(window.location, 'search', search);
+    browserHistory.location.search = '';
   });
 
   it('renders <Load>', () => {
@@ -161,23 +188,10 @@ describe('when selectChoice is invoked', () => {
 });
 
 describe('when window.location.search="?url=http://foo.bar"', () => {
-  const { URLSearchParams } = window;
   let resolvedValue;
 
   beforeAll(() => {
-    window.location.search = '?url=http://foo.bar';
-    window.URLSearchParams = jest.fn(search => ({
-      get: param => {
-        const match = search.match(new RegExp(param + '=(.+)'));
-        if (match && match.length) {
-          return match[1];
-        }
-      },
-    }));
-  });
-
-  afterAll(() => {
-    window.URLSearchParams = URLSearchParams;
+    browserHistory.location.search = '?url=http://foo.bar';
   });
 
   describe('and fetch is successful', () => {
@@ -192,7 +206,7 @@ describe('when window.location.search="?url=http://foo.bar"', () => {
       getStory.mockImplementationOnce(
         () => new Promise(resolve => resolve(resolvedValue))
       );
-      defineProperty(window.location, 'search', '?url=http://foo.bar');
+      browserHistory.location.search = '?url=http://foo.bar';
       wrapper = shallow(<Play />).dive();
     });
 
@@ -297,6 +311,75 @@ describe('when window.location.search="?url=http://foo.bar"', () => {
 
     it('does not set state.config', () => {
       expect(wrapper.state('config')).toEqual(defaultConfig);
+    });
+  });
+});
+
+describe('componentDidMount', () => {
+  const unlisten = jest.fn();
+
+  beforeAll(() => {
+    browserHistory.location.search = '';
+    wrapper = shallow(<Play />).dive();
+    instance = wrapper.instance();
+    jest.spyOn(instance, 'historyListener');
+    browserHistory.listen.mockReturnValueOnce(unlisten);
+  });
+
+  it('calls `historyListener` with location', () => {
+    expect(instance.historyListener).not.toHaveBeenCalled();
+    instance.componentDidMount();
+    expect(instance.historyListener).toHaveBeenCalledWith(
+      browserHistory.location
+    );
+  });
+
+  it('listens to browser history', () => {
+    expect(browserHistory.listen).toHaveBeenCalledWith(
+      instance.historyListener
+    );
+  });
+
+  it('sets `unlisten`', () => {
+    expect(instance.unlisten).toBe(unlisten);
+  });
+});
+
+describe('componentWillUnmount', () => {
+  const unlisten = jest.fn();
+
+  beforeAll(() => {
+    browserHistory.location.search = '';
+    browserHistory.listen.mockReturnValueOnce(unlisten);
+    wrapper = shallow(<Play />).dive();
+    instance = wrapper.instance();
+    jest.spyOn(instance, 'unlisten');
+  });
+
+  it('calls `unlisten`', () => {
+    instance.componentWillUnmount();
+    expect(unlisten).toHaveBeenCalledWith();
+  });
+});
+
+describe('historyListener', () => {
+  describe('when URLSearchParams=undefined', () => {
+    const { URLSearchParams } = window;
+
+    beforeAll(() => {
+      jest.spyOn(console, 'error').mockReturnValueOnce(); // eslint-disable-line no-console
+      browserHistory.location.search = '';
+      window.URLSearchParams = undefined;
+      wrapper = shallow(<Play />).dive();
+      instance = wrapper.instance();
+    });
+
+    afterAll(() => {
+      window.URLSearchParams = URLSearchParams;
+    });
+
+    it('calls `console.error` with error', () => {
+      expect(console.error).toHaveBeenCalledWith(expect.any(TypeError)); // eslint-disable-line no-console
     });
   });
 });

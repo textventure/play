@@ -4,13 +4,15 @@ exports[`when props.config={}, props.branches={}, and state.isLoading=false rend
 
 exports[`when props={} and state.isLoading=false renders correctly 1`] = `<Load />`;
 
-exports[`when props={} renders correctly 1`] = `
+exports[`when props={} and state.isLoading=true renders correctly 1`] = `
 <div
   className="Play-progress-1"
 >
   <WithStyles(LinearProgress) />
 </div>
 `;
+
+exports[`when props={} renders correctly 1`] = `<Load />`;
 
 exports[`with props and state renders correctly 1`] = `
 <main>

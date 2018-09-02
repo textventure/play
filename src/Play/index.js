@@ -5,6 +5,7 @@ import Branch from '../Branch';
 import Load from '../Load';
 import { getStory } from '../helpers/api';
 import { getKey, getValue } from '../helpers/util';
+import browserHistory from '../helpers/history';
 
 export const defaultConfig = {
   renderer: 'text',
@@ -29,16 +30,40 @@ class Play extends Component {
         ...config,
       },
       isLoading: true,
+      url: '',
     };
     this.state.currentBranchId = this.state.config.start;
   }
 
   componentDidMount() {
+    // invoke listener with browser history location
+    this.historyListener(browserHistory.location);
+
+    // subscribe to browser history listener
+    this.unlisten = browserHistory.listen(this.historyListener);
+  }
+
+  componentWillUnmount() {
+    // unsubscribe from browser history listener
+    this.unlisten();
+  }
+
+  /**
+   * Listens to browser history navigation events.
+   *
+   * @param {Object} location
+   * @param {String} location.hash
+   * @param {String} location.pathname
+   * @param {String} location.search
+   * @param {*}      location.state
+   */
+  historyListener = location => {
     try {
-      const url = new URLSearchParams(window.location.search).get('url');
+      const url = new URLSearchParams(location.search).get('url');
       if (!url) {
         this.setState({
           isLoading: false,
+          url: '',
         });
         return;
       }
@@ -47,6 +72,7 @@ class Play extends Component {
         .then(story => {
           const newState = {
             isLoading: false,
+            url,
           };
 
           const { _config: config, ...branches } = story;
@@ -69,8 +95,10 @@ class Play extends Component {
             isLoading: false,
           });
         });
-    } catch (error) {}
-  }
+    } catch (error) {
+      console.error(error); // eslint-disable-line no-console
+    }
+  };
 
   /**
    * Updates next story branch id based on choice.
