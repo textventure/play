@@ -1,4 +1,4 @@
-const { jsyaml, URL, URLSearchParams } = window;
+const { jsyaml } = window;
 
 let element = document.createElement('div');
 
@@ -20,17 +20,12 @@ beforeAll(() => {
   window.jsyaml = {
     load: jest.fn(() => ({})),
   };
-
-  window.URL = jest.fn();
-  window.URLSearchParams = jest.fn(() => ({ get: () => {} }));
 });
 
 afterAll(() => {
   document.getElementById.mockRestore();
   document.fetch.mockRestore();
   window.jsyaml = jsyaml;
-  window.URL = URL;
-  window.URLSearchParams = URLSearchParams;
 });
 
 it('renders correctly', () => {

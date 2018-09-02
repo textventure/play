@@ -6,6 +6,7 @@ import Load from '../Load';
 import { getStory } from '../helpers/api';
 import { getKey, getValue } from '../helpers/util';
 import browserHistory from '../helpers/history';
+import { searchParams } from '../helpers/url';
 
 export const defaultConfig = {
   renderer: 'text',
@@ -58,46 +59,42 @@ class Play extends Component {
    * @param {*}      location.state
    */
   historyListener = location => {
-    try {
-      const url = new URLSearchParams(location.search).get('url');
-      if (!url) {
+    const url = searchParams(location.search, 'url');
+    if (!url) {
+      this.setState({
+        isLoading: false,
+        url: '',
+      });
+      return;
+    }
+
+    getStory(url)
+      .then(story => {
+        const newState = {
+          isLoading: false,
+          url,
+        };
+
+        const { _config: config, ...branches } = story;
+        if (branches && config) {
+          newState.branches = branches;
+          newState.config = {
+            ...defaultConfig,
+            ...config,
+          };
+          // set starting branch id
+          if (config.start) {
+            newState.currentBranchId = config.start;
+          }
+        }
+
+        this.setState(newState);
+      })
+      .catch(error => {
         this.setState({
           isLoading: false,
-          url: '',
         });
-        return;
-      }
-
-      getStory(url)
-        .then(story => {
-          const newState = {
-            isLoading: false,
-            url,
-          };
-
-          const { _config: config, ...branches } = story;
-          if (branches && config) {
-            newState.branches = branches;
-            newState.config = {
-              ...defaultConfig,
-              ...config,
-            };
-            // set starting branch id
-            if (config.start) {
-              newState.currentBranchId = config.start;
-            }
-          }
-
-          this.setState(newState);
-        })
-        .catch(error => {
-          this.setState({
-            isLoading: false,
-          });
-        });
-    } catch (error) {
-      console.error(error); // eslint-disable-line no-console
-    }
+      });
   };
 
   /**

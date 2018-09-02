@@ -17,31 +17,9 @@ let instance;
 let props;
 let wrapper;
 
-const { URLSearchParams } = window;
-
-beforeAll(() => {
-  window.URLSearchParams = jest.fn(search => ({
-    /**
-     * The get() method of the URLSearchParams interface returns the first
-     * value associated to the given search parameter.
-     *
-     * @see {@link https://developer.mozilla.org/docs/Web/API/URLSearchParams/get URLSearchParams.get()}
-     *
-     * @param  {String}      [param]
-     * @retrun {String|null}
-     */
-    get: param => {
-      if (!search) return null;
-      const match = search.match(new RegExp(param + '=(.+)'));
-      if (match instanceof Array) return match[1];
-    },
-  }));
-});
-
 afterAll(() => {
   jest.unmock('../helpers/api');
   jest.unmock('../helpers/history');
-  window.URLSearchParams = URLSearchParams;
 });
 
 describe('when props={}', () => {
@@ -359,27 +337,5 @@ describe('componentWillUnmount', () => {
   it('calls `unlisten`', () => {
     instance.componentWillUnmount();
     expect(unlisten).toHaveBeenCalledWith();
-  });
-});
-
-describe('historyListener', () => {
-  describe('when URLSearchParams=undefined', () => {
-    const { URLSearchParams } = window;
-
-    beforeAll(() => {
-      jest.spyOn(console, 'error').mockReturnValueOnce(); // eslint-disable-line no-console
-      browserHistory.location.search = '';
-      window.URLSearchParams = undefined;
-      wrapper = shallow(<Play />).dive();
-      instance = wrapper.instance();
-    });
-
-    afterAll(() => {
-      window.URLSearchParams = URLSearchParams;
-    });
-
-    it('calls `console.error` with error', () => {
-      expect(console.error).toHaveBeenCalledWith(expect.any(TypeError)); // eslint-disable-line no-console
-    });
   });
 });
