@@ -30,11 +30,19 @@ const EQUAL = '=';
  */
 export const searchParams = (search, param) => {
   if (typeof search !== 'string') {
-    return;
+    throw TypeError('First argument must be a string');
   }
 
   if (search[0] === QUESTION_MARK) {
     search = search.slice(1);
+  }
+
+  if (!search) {
+    if (typeof param === 'string') {
+      return;
+    } else {
+      return {};
+    }
   }
 
   const searchParamsMap = search

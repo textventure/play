@@ -24,6 +24,7 @@ afterAll(() => {
 
 describe('when props={}', () => {
   beforeAll(() => {
+    browserHistory.location.search = '';
     wrapper = shallow(<Play />).dive();
   });
 

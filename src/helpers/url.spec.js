@@ -4,14 +4,20 @@ describe('searchParams', () => {
   // invalid cases
   [undefined, null, 42, Object, Array, Function, Date].forEach(arg => {
     describe(`when arguments=[${arg}]`, () => {
-      it('returns `undefined`', () => {
-        expect(searchParams(arg)).toBe(undefined);
+      it('throws error', () => {
+        expect(() => searchParams(arg)).toThrow(TypeError);
       });
     });
   });
 
   // test cases
   [
+    // empty string
+    {
+      args: [''],
+      expected: {},
+    },
+
     // no starting question mark character
     {
       args: ['foo=bar'],
@@ -61,6 +67,10 @@ describe('searchParams', () => {
     },
 
     // with 2 arguments
+    {
+      args: ['', 'foo'],
+      expected: undefined,
+    },
     {
       args: ['?foo=bar', null],
       expected: { foo: 'bar' },
