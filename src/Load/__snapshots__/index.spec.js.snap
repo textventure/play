@@ -1,13 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`when state.message="Message" renders correctly 1`] = `
+exports[`when props={} renders correctly 1`] = `
 <WithStyles(Card)>
-  <WithStyles(Snackbar)
-    autoHideDuration={6000}
-    message="Message"
-    onClose={[Function]}
-    open={true}
-  />
+  
   <form
     onSubmit={[Function]}
   >
@@ -52,16 +47,14 @@ exports[`when state.message="Message" renders correctly 1`] = `
 </WithStyles(Card)>
 `;
 
-exports[`with state.branches and state.config and state.value="http://foo.bar" renders correctly 1`] = `
-<WithStyles(Play)
-  branches={Object {}}
-  config={Object {}}
-/>
-`;
-
-exports[`without props renders correctly 1`] = `
+exports[`when state.message="Message" renders correctly 1`] = `
 <WithStyles(Card)>
-  
+  <WithStyles(Snackbar)
+    autoHideDuration={6000}
+    message="Message"
+    onClose={[Function]}
+    open={true}
+  />
   <form
     onSubmit={[Function]}
   >

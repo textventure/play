@@ -4,41 +4,26 @@ import Snackbar from '@material-ui/core/Snackbar';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Card from '../Card';
-import Play from '../Play';
-import { getStory } from '../helpers/api';
-import { searchParams } from '../helpers/url';
+import history from '../helpers/history';
 
 const initialState = {
   error: '',
   value: '',
 };
+
 const placeholder =
   window.location.origin + process.env.PUBLIC_URL + '/demo.yaml';
 
 export default class Load extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ...initialState,
-      branches: null,
-      config: null,
-      message: '',
-    };
-
-    const url = searchParams(window.location.search, 'url');
-    if (url) {
-      this.state.value = url;
-    }
-  }
+  state = {
+    ...initialState,
+    message: '',
+  };
 
   /**
    * Handles snackbar close.
    */
-  handleClose = () => {
-    this.setState({
-      message: '',
-    });
-  };
+  handleClose = () => this.setState({ message: '' });
 
   /**
    * Handles input change.
@@ -64,35 +49,13 @@ export default class Load extends Component {
    *
    * @param {SyntheticEvent} event
    */
-  handleSubmit = event => {
+  onSubmit = event => {
     event.preventDefault();
-
-    getStory(this.state.value)
-      .then(story => {
-        const { _config: config, ...branches } = story;
-
-        if (config && branches) {
-          this.setState({
-            branches,
-            config,
-          });
-        }
-      })
-      .catch(error => {
-        this.setState({
-          message: error.message,
-        });
-      });
+    history.push(`?url=${encodeURIComponent(this.state.value)}`);
   };
 
   render() {
-    const { branches, config, value } = this.state;
-    if (branches && config) {
-      window.history.pushState({}, '', `?url=${encodeURIComponent(value)}`);
-      return <Play branches={branches} config={config} />;
-    }
-
-    const { error, message } = this.state;
+    const { error, message, value } = this.state;
     return (
       <Card>
         {message && (
@@ -104,7 +67,7 @@ export default class Load extends Component {
           />
         )}
 
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.onSubmit}>
           <Typography gutterBottom variant="headline">
             Load Story
           </Typography>

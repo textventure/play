@@ -1,14 +1,15 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { getStory } from '../helpers/api';
+import history from '../helpers/history';
 import { defineProperty } from '../helpers/test-util';
 import Load from '.';
 
-jest.mock('../helpers/api', () => ({
-  getStory: jest.fn(),
+jest.mock('../helpers/history', () => ({
+  push: jest.fn(),
 }));
 
 let wrapper;
+let instance;
 let state;
 let event;
 
@@ -20,15 +21,15 @@ beforeAll(() => {
 
 afterAll(() => {
   window.URL = URL;
-  jest.unmock('../helpers/api');
+  jest.unmock('../helpers/history');
 });
 
-describe('without props', () => {
+describe('when props={}', () => {
   beforeAll(() => {
     wrapper = shallow(<Load />);
   });
 
-  it('renders <TextField> with placeholder', () => {
+  it('renders <TextField> with default placeholder', () => {
     expect(wrapper.find('TextField').prop('placeholder')).toBe(
       'http://localhost/demo.yaml'
     );
@@ -36,50 +37,6 @@ describe('without props', () => {
 
   it('renders correctly', () => {
     expect(wrapper.getElement()).toMatchSnapshot();
-  });
-});
-
-describe('when window.location.search="?url=http://foo.bar"', () => {
-  const { search } = window.location;
-
-  beforeAll(() => {
-    defineProperty(window.location, 'search', '?url=http://foo.bar');
-    wrapper = shallow(<Load />);
-  });
-
-  afterAll(() => {
-    defineProperty(window.location, 'search', search);
-  });
-
-  it('sets state.value', () => {
-    expect(wrapper.state('value')).toBe('http://foo.bar');
-  });
-});
-
-describe('with state.branches and state.config', () => {
-  beforeAll(() => {
-    wrapper = shallow(<Load />);
-    state = {
-      branches: {},
-      config: {},
-    };
-    wrapper.setState(state);
-  });
-
-  it('renders <Play>', () => {
-    expect(wrapper.find('WithStyles(Play)').length).toBe(1);
-  });
-
-  describe('and state.value="http://foo.bar"', () => {
-    beforeAll(() => {
-      wrapper.setState({
-        value: 'http://foo.bar',
-      });
-    });
-
-    it('renders correctly', () => {
-      expect(wrapper.getElement()).toMatchSnapshot();
-    });
   });
 });
 
@@ -183,137 +140,50 @@ describe('onChange', () => {
 });
 
 describe('onSubmit', () => {
-  let resolvedValue;
-  let rejectedValue;
-
-  describe('when successful', () => {
-    beforeAll(() => {
-      resolvedValue = {
-        _config: {},
-        branches: {},
-      };
-      getStory.mockImplementation(
-        () => new Promise(resolve => resolve(resolvedValue))
-      );
-      jest.spyOn(window.history, 'pushState');
-
-      wrapper = shallow(<Load />);
-      state = {
-        value: 'http://foo.bar',
-      };
-      wrapper.setState(state);
-
-      event = {
-        preventDefault: jest.fn(),
-      };
-      wrapper.find('form').simulate('submit', event);
-    });
-
-    afterAll(() => {
-      window.history.pushState.mockRestore();
-    });
-
-    it('prevents default event', () => {
-      expect(event.preventDefault).toHaveBeenCalled();
-      event.preventDefault.mockReset();
-    });
-
-    it('calls `getStory`', () => {
-      expect(getStory).toHaveBeenCalledWith(state.value);
-    });
-
-    it('sets state with branches and config', () => {
-      const { _config: config, ...branches } = resolvedValue;
-      expect(wrapper.state('branches')).toEqual(branches);
-      expect(wrapper.state('config')).toEqual(config);
-    });
-
-    it('calls window.history.pushState with query string', () => {
-      expect(window.history.pushState).toHaveBeenCalledWith(
-        {},
-        '',
-        `?url=${encodeURIComponent(wrapper.state('value'))}`
-      );
-    });
-
-    it('renders <Play>', () => {
-      wrapper.update();
-      expect(wrapper.find('WithStyles(Play)').length).toBe(1);
-    });
-
-    it('renders <Play> with props', () => {
-      const { _config: config, ...branches } = resolvedValue;
-      const play = wrapper.find('WithStyles(Play)');
-      expect(play.prop('branches')).toEqual(branches);
-      expect(play.prop('config')).toEqual(config);
-    });
+  beforeAll(() => {
+    wrapper = shallow(<Load />);
+    instance = wrapper.instance();
+    state = { value: 'http://foo.bar' };
+    wrapper.setState(state);
+    event = { preventDefault: jest.fn() };
+    instance.onSubmit(event);
   });
 
-  describe('with missing properties', () => {
-    beforeAll(() => {
-      resolvedValue = {};
-      getStory.mockImplementation(
-        () => new Promise(resolve => resolve(resolvedValue))
-      );
-
-      wrapper = shallow(<Load />);
-      state = {
-        value: 'http://foo.bar',
-      };
-      wrapper.setState(state);
-      wrapper.instance().handleSubmit({ preventDefault: () => {} });
-    });
-
-    it('does not set state', () => {
-      expect(wrapper.state('branches')).toEqual(null);
-      expect(wrapper.state('config')).toEqual(null);
-    });
-
-    it('does not redirect to "/play"', () => {
-      wrapper.update();
-      expect(wrapper.find('Redirect').length).toBe(0);
-    });
+  it('sets `onSubmit` on form', () => {
+    expect(wrapper.find('form').prop('onSubmit')).toBe(instance.onSubmit);
   });
 
-  describe('when unsuccessful', () => {
-    beforeAll(() => {
-      rejectedValue = {
-        message: 'Error',
-      };
-      getStory.mockImplementation(
-        () => new Promise((resolve, reject) => reject(rejectedValue))
-      );
+  it('calls `event.preventDefault`', () => {
+    expect(event.preventDefault).toHaveBeenCalledWith();
+  });
 
-      wrapper = shallow(<Load />);
-      state = {
-        value: 'http://foo.bar',
-      };
-      wrapper.setState(state);
+  it('calls `history.push` with state.value', () => {
+    expect(history.push).toHaveBeenCalledWith(
+      `?url=${encodeURIComponent(state.value)}`
+    );
+  });
+});
 
-      event = {
-        preventDefault: jest.fn(),
-      };
-      wrapper.find('form').simulate('submit', event);
-    });
+describe('when location.origin="http://foo.bar" and process.env.PUBLIC_URL="/play"', () => {
+  const { origin } = window.location;
+  const { PUBLIC_URL } = process.env;
 
-    it('prevents default event', () => {
-      expect(event.preventDefault).toHaveBeenCalled();
-      event.preventDefault.mockReset();
-    });
+  beforeAll(() => {
+    jest.resetModules();
+    defineProperty(window.location, 'origin', 'http://foo.bar');
+    process.env.PUBLIC_URL = '/play';
+    const Load = require('.').default;
+    wrapper = shallow(<Load />);
+  });
 
-    it('calls `getStory`', () => {
-      expect(getStory).toHaveBeenCalledWith(state.value);
-    });
+  afterAll(() => {
+    defineProperty(window.location, 'origin', origin);
+    process.env.PUBLIC_URL = PUBLIC_URL;
+  });
 
-    it('sets state.message', () => {
-      expect(wrapper.state('message')).toBe(rejectedValue.message);
-    });
-
-    it('renders <Snackbar> with message', () => {
-      wrapper.update();
-      expect(wrapper.find('WithStyles(Snackbar)').prop('message')).toBe(
-        rejectedValue.message
-      );
-    });
+  it('renders <TextField> with correct placeholder', () => {
+    expect(wrapper.find('TextField').prop('placeholder')).toBe(
+      'http://foo.bar/play/demo.yaml'
+    );
   });
 });
