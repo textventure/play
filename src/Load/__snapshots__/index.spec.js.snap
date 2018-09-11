@@ -47,11 +47,11 @@ exports[`when props={} renders correctly 1`] = `
 </WithStyles(Card)>
 `;
 
-exports[`when state.message="Message" renders correctly 1`] = `
+exports[`when state.message="foo" renders correctly 1`] = `
 <WithStyles(Card)>
   <WithStyles(Snackbar)
     autoHideDuration={6000}
-    message="Message"
+    message="foo"
     onClose={[Function]}
     open={true}
   />

@@ -4,9 +4,7 @@ import history from '../helpers/history';
 import { defineProperty } from '../helpers/test-util';
 import Load from '.';
 
-jest.mock('../helpers/history', () => ({
-  push: jest.fn(),
-}));
+jest.mock('../helpers/history', () => ({ push: jest.fn() }));
 
 let wrapper;
 let instance;
@@ -40,12 +38,10 @@ describe('when props={}', () => {
   });
 });
 
-describe('when state.message="Message"', () => {
+describe('when state.message="foo"', () => {
   beforeAll(() => {
     wrapper = shallow(<Load />);
-    state = {
-      message: 'Message',
-    };
+    state = { message: 'foo' };
     wrapper.setState(state);
   });
 
@@ -58,9 +54,30 @@ describe('when state.message="Message"', () => {
   it('renders correctly', () => {
     expect(wrapper.getElement()).toMatchSnapshot();
   });
+});
 
-  it('sets state.message="" when `handleClose` is called', () => {
-    wrapper.instance().handleClose();
+describe('onClose', () => {
+  beforeAll(() => {
+    wrapper = shallow(<Load />);
+    instance = wrapper.instance();
+    state = { message: 'foo' };
+    wrapper.setState(state);
+    jest.spyOn(instance, 'setState');
+  });
+
+  it('sets `onClose` on <Snackbar>', () => {
+    expect(wrapper.find('WithStyles(Snackbar)').prop('onClose')).toBe(
+      instance.onClose
+    );
+  });
+
+  it('calls `setState`', () => {
+    expect(instance.setState).not.toHaveBeenCalled();
+    instance.onClose();
+    expect(instance.setState).toHaveBeenCalledWith({ message: '' });
+  });
+
+  it('sets state.message=""', () => {
     expect(wrapper.state('message')).toBe('');
   });
 });
@@ -68,9 +85,7 @@ describe('when state.message="Message"', () => {
 describe('when state.value="http://foo.bar"', () => {
   beforeAll(() => {
     wrapper = shallow(<Load />);
-    state = {
-      value: 'http://foo.bar',
-    };
+    state = { value: 'http://foo.bar' };
     wrapper.setState(state);
   });
 
@@ -82,9 +97,7 @@ describe('when state.value="http://foo.bar"', () => {
 describe('when state.error="Error"', () => {
   beforeAll(() => {
     wrapper = shallow(<Load />);
-    wrapper.setState({
-      error: 'Error',
-    });
+    wrapper.setState({ error: 'Error' });
   });
 
   it('renders <TextField> with error styling', () => {
@@ -99,11 +112,7 @@ describe('onChange', () => {
 
   describe('when value is a url', () => {
     beforeAll(() => {
-      event = {
-        target: {
-          value: 'http://foo.bar',
-        },
-      };
+      event = { target: { value: 'http://foo.bar' } };
       wrapper.find('TextField').simulate('change', event);
     });
 
@@ -121,11 +130,7 @@ describe('onChange', () => {
       window.URL.mockImplementation(() => {
         throw new Error();
       });
-      event = {
-        target: {
-          value: 'foo.bar',
-        },
-      };
+      event = { target: { value: 'foo.bar' } };
       wrapper.find('TextField').simulate('change', event);
     });
 
@@ -149,7 +154,7 @@ describe('onSubmit', () => {
     instance.onSubmit(event);
   });
 
-  it('sets `onSubmit` on form', () => {
+  it('sets `onSubmit` on <form>', () => {
     expect(wrapper.find('form').prop('onSubmit')).toBe(instance.onSubmit);
   });
 

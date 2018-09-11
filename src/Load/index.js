@@ -23,7 +23,7 @@ export default class Load extends Component {
   /**
    * Handles snackbar close.
    */
-  handleClose = () => this.setState({ message: '' });
+  onClose = () => this.setState({ message: '' });
 
   /**
    * Handles input change.
@@ -62,7 +62,7 @@ export default class Load extends Component {
           <Snackbar
             autoHideDuration={6000}
             message={message}
-            onClose={this.handleClose}
+            onClose={this.onClose}
             open={Boolean(message)}
           />
         )}
