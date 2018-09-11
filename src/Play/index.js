@@ -23,17 +23,15 @@ class Play extends Component {
   constructor(props) {
     super(props);
     const { branches, config } = props;
-
     this.state = {
       branches,
       config: {
         ...defaultConfig,
         ...config,
       },
-      isLoading: true,
-      url: '',
+      isLoading: false,
     };
-    this.state.currentBranchId = this.state.config.start;
+    this.state.id = this.state.config.start;
   }
 
   componentDidMount() {
@@ -59,22 +57,32 @@ class Play extends Component {
    * @param {*}      location.state
    */
   historyListener = location => {
-    const url = searchParams(location.search, 'url');
+    const { id, url } = searchParams(location.search);
+    if (this.hasLoaded) {
+      if (id && id !== this.state.id) {
+        this.setState({ id });
+      }
+    } else {
+      this.loadStory(url);
+    }
+  };
+
+  /**
+   * Fetches and loads story.
+   *
+   * @param {String} url
+   */
+  loadStory = url => {
     if (!url) {
-      this.setState({
-        isLoading: false,
-        url: '',
-      });
       return;
     }
 
+    this.hasLoaded = true;
+    this.setState({ isLoading: true });
+    const newState = { isLoading: false };
+
     getStory(url)
       .then(story => {
-        const newState = {
-          isLoading: false,
-          url,
-        };
-
         const { _config: config, ...branches } = story;
         if (branches && config) {
           newState.branches = branches;
@@ -82,39 +90,33 @@ class Play extends Component {
             ...defaultConfig,
             ...config,
           };
+
           // set starting branch id
           if (config.start) {
-            newState.currentBranchId = config.start;
+            newState.id = config.start;
           }
         }
 
         this.setState(newState);
       })
-      .catch(error => {
-        this.setState({
-          isLoading: false,
-        });
+      .catch(() => {
+        this.setState(newState);
       });
   };
 
   /**
-   * Updates next story branch id based on choice.
+   * Updates next story branch id based on selected choice id.
    *
-   * @param {String} branchId
+   * @param {String} id
    */
-  selectChoice = branchId => {
-    this.setState({
-      currentBranchId: branchId,
-    });
-  };
+  selectChoice = id => this.setState({ id });
 
   render() {
-    const { classes } = this.props;
-    const { branches, config, currentBranchId, isLoading } = this.state;
+    const { branches, config, id, isLoading } = this.state;
 
     if (isLoading) {
       return (
-        <div className={classes.progress}>
+        <div className={this.props.classes.progress}>
           <LinearProgress />
         </div>
       );
@@ -124,8 +126,7 @@ class Play extends Component {
       return <Load />;
     }
 
-    const currentBranch = branches[currentBranchId];
-
+    const currentBranch = branches[id];
     return (
       <main>
         {currentBranch && (

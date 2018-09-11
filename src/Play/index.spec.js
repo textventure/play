@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { getStory } from '../helpers/api';
-import browserHistory from '../helpers/history';
+import history from '../helpers/history';
 import Play, { defaultConfig } from '.';
 
 jest.mock('../helpers/api', () => ({
@@ -24,7 +24,7 @@ afterAll(() => {
 
 describe('when props={}', () => {
   beforeAll(() => {
-    browserHistory.location.search = '';
+    history.location = { search: '' };
     wrapper = shallow(<Play />).dive();
   });
 
@@ -70,7 +70,7 @@ describe('when props={} and state.isLoading=false', () => {
 
 describe('when window.location.search="" and state.isLoading=true', () => {
   beforeAll(() => {
-    browserHistory.location.search = '';
+    history.location = { search: '' };
     wrapper = shallow(<Play />).dive();
   });
 
@@ -85,7 +85,7 @@ describe('when window.location.search="" and state.isLoading=true', () => {
 
 describe('when window.location.search="?foo" and state.isLoading=false', () => {
   beforeAll(() => {
-    browserHistory.location.search = '?foo';
+    history.location = { search: '?foo' };
     wrapper = shallow(<Play />).dive();
     wrapper.setState({
       isLoading: false,
@@ -93,7 +93,7 @@ describe('when window.location.search="?foo" and state.isLoading=false', () => {
   });
 
   afterAll(() => {
-    browserHistory.location.search = '';
+    history.location = { search: '' };
   });
 
   it('renders <Load>', () => {
@@ -124,10 +124,10 @@ describe('when props.config={}, props.branches={}, and state.isLoading=false', (
 
 describe('with props and state', () => {
   beforeAll(() => {
-    const currentBranchId = 'branchId';
+    const id = 'branchId';
     props = {
       branches: {
-        [currentBranchId]: {
+        [id]: {
           'Text.': [
             {
               'Choice text.': 'choice',
@@ -140,7 +140,7 @@ describe('with props and state', () => {
 
     wrapper = shallow(<Play {...props} />).dive();
     wrapper.setState({
-      currentBranchId,
+      id,
       isLoading: false,
     });
   });
@@ -159,21 +159,85 @@ describe('when selectChoice is invoked', () => {
     wrapper = shallow(<Play />).dive();
   });
 
-  it('sets state.currentBranchId with value', () => {
+  it('sets state.id with value', () => {
     const branchId = 'branchId';
     wrapper.instance().selectChoice(branchId);
-    expect(wrapper.state('currentBranchId')).toBe(branchId);
+    expect(wrapper.state('id')).toBe(branchId);
   });
 });
 
-describe('when window.location.search="?url=http://foo.bar"', () => {
+describe('historyListener', () => {
+  beforeAll(() => {
+    history.location = { search: '' };
+    getStory.mockReturnValue(new Promise(resolve => resolve()));
+    wrapper = shallow(<Play />).dive();
+    instance = wrapper.instance();
+    jest.spyOn(instance, 'loadStory').mockReturnValue();
+    jest.spyOn(instance, 'setState');
+  });
+
+  afterAll(() => {
+    history.location = {};
+    getStory.mockReset();
+  });
+
+  describe('when hasLoaded=true', () => {
+    beforeEach(() => {
+      instance.hasLoaded = true;
+      instance.loadStory.mockReset();
+      instance.setState.mockReset();
+    });
+
+    it('does not call `loadStory`', () => {
+      instance.historyListener({ search: '' });
+      expect(instance.loadStory).not.toHaveBeenCalled();
+    });
+
+    describe('and id=undefined', () => {
+      it('does not call `setState` with id', () => {
+        instance.historyListener({ search: '' });
+        expect(instance.setState).not.toHaveBeenCalledWith('startId');
+      });
+    });
+
+    describe('and id !== state.id', () => {
+      it('does not call `setState` with id', () => {
+        wrapper.setState({ id: 'fooId' });
+        instance.historyListener({ search: '?id=startId' });
+        expect(instance.setState).not.toHaveBeenCalledWith('startId');
+      });
+    });
+
+    describe('and id === state.id', () => {
+      it('calls `setState` with id', () => {
+        wrapper.setState({ id: 'startId' });
+        instance.historyListener({ search: '?id=startId' });
+        expect(instance.setState).toHaveBeenCalledWith({ id: 'startId' });
+      });
+    });
+  });
+
+  describe('when hasLoaded=false', () => {
+    it('calls `loadStory` with url', () => {
+      instance.hasLoaded = false;
+      instance.historyListener({ search: '?url=http://foo.bar' });
+      expect(instance.loadStory).toHaveBeenCalledWith('http://foo.bar');
+    });
+  });
+});
+
+describe('when location.search="?url=http://foo.bar"', () => {
   let resolvedValue;
 
   beforeAll(() => {
-    browserHistory.location.search = '?url=http://foo.bar';
+    history.location = { search: '?url=http://foo.bar' };
   });
 
-  describe('and fetch is successful', () => {
+  afterAll(() => {
+    history.location = {};
+  });
+
+  describe('when fetch is successful', () => {
     resolvedValue = {
       _config: {
         start: 'startId',
@@ -185,7 +249,7 @@ describe('when window.location.search="?url=http://foo.bar"', () => {
       getStory.mockImplementationOnce(
         () => new Promise(resolve => resolve(resolvedValue))
       );
-      browserHistory.location.search = '?url=http://foo.bar';
+      history.location = { search: '?url=http://foo.bar' };
       wrapper = shallow(<Play />).dive();
     });
 
@@ -209,11 +273,11 @@ describe('when window.location.search="?url=http://foo.bar"', () => {
           ...defaultConfig,
           ...config,
         });
-        expect(wrapper.state('currentBranchId')).toBe(config.start);
+        expect(wrapper.state('id')).toBe(config.start);
       });
 
-      it('sets state.currentBranchId', () => {
-        expect(wrapper.state('currentBranchId')).toBe(config.start);
+      it('sets state.id', () => {
+        expect(wrapper.state('id')).toBe(config.start);
       });
     });
 
@@ -228,16 +292,14 @@ describe('when window.location.search="?url=http://foo.bar"', () => {
         );
         // reset state
         wrapper.setState({
-          currentBranchId: 'start',
+          id: 'start',
         });
         wrapper.instance().componentDidMount();
       });
 
-      it('does not set state.currentBranchId', () => {
-        expect(wrapper.state('currentBranchId')).not.toBe(
-          resolvedValue._config.start
-        );
-        expect(wrapper.state('currentBranchId')).toBe('start');
+      it('does not set state.id', () => {
+        expect(wrapper.state('id')).not.toBe(resolvedValue._config.start);
+        expect(wrapper.state('id')).toBe('start');
       });
     });
   });
@@ -260,7 +322,7 @@ describe('when window.location.search="?url=http://foo.bar"', () => {
     });
 
     it('does not set state.branches', () => {
-      expect(wrapper.state('branches')).toBe(undefined);
+      expect(wrapper.state('branches')).toEqual({});
     });
 
     it('does not set state.config', () => {
@@ -274,13 +336,16 @@ describe('when window.location.search="?url=http://foo.bar"', () => {
         () => new Promise((resolve, reject) => reject())
       );
       wrapper = shallow(<Play />).dive();
+      instance = wrapper.instance();
+      jest.spyOn(instance, 'setState');
     });
 
     it('calls `getStory` with url', () => {
       expect(getStory).toHaveBeenCalledWith('http://foo.bar');
     });
 
-    it('sets state.isLoading to false', () => {
+    it('sets state.isLoading=false', () => {
+      expect(instance.setState).toHaveBeenCalledWith({ isLoading: false });
       expect(wrapper.state('isLoading')).toBe(false);
     });
 
@@ -294,29 +359,74 @@ describe('when window.location.search="?url=http://foo.bar"', () => {
   });
 });
 
+describe('loadStory', () => {
+  beforeAll(() => {
+    history.location = { search: '' };
+    getStory.mockReturnValue(new Promise(resolve => resolve()));
+    wrapper = shallow(<Play />).dive();
+    instance = wrapper.instance();
+    jest.spyOn(instance, 'setState');
+  });
+
+  describe('when url=undefined', () => {
+    beforeAll(() => {
+      getStory.mockReset();
+      instance.loadStory();
+    });
+
+    it('does not set hasLoaded=true', () => {
+      expect(instance.hasLoaded).toBe(undefined);
+    });
+
+    it('does not call `getStory`', () => {
+      expect(getStory).not.toHaveBeenCalled();
+    });
+
+    it('does not call `setState`', () => {
+      expect(instance.setState).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('when url="http://foo.bar"', () => {
+    beforeAll(() => {
+      getStory.mockReturnValue(new Promise(resolve => resolve()));
+      instance.setState.mockReset();
+      instance.loadStory('http://foo.bar');
+    });
+
+    it('sets hasLoaded=true', () => {
+      expect(instance.hasLoaded).toBe(true);
+    });
+
+    it('calls `getStory`', () => {
+      expect(getStory).toHaveBeenCalledWith('http://foo.bar');
+    });
+
+    it('calls `setState`', () => {
+      expect(instance.setState).toHaveBeenCalled();
+    });
+  });
+});
+
 describe('componentDidMount', () => {
   const unlisten = jest.fn();
 
   beforeAll(() => {
-    browserHistory.location.search = '';
+    history.location = { search: '' };
     wrapper = shallow(<Play />).dive();
     instance = wrapper.instance();
     jest.spyOn(instance, 'historyListener');
-    browserHistory.listen.mockReturnValueOnce(unlisten);
+    history.listen.mockReturnValueOnce(unlisten);
   });
 
   it('calls `historyListener` with location', () => {
     expect(instance.historyListener).not.toHaveBeenCalled();
     instance.componentDidMount();
-    expect(instance.historyListener).toHaveBeenCalledWith(
-      browserHistory.location
-    );
+    expect(instance.historyListener).toHaveBeenCalledWith(history.location);
   });
 
   it('listens to browser history', () => {
-    expect(browserHistory.listen).toHaveBeenCalledWith(
-      instance.historyListener
-    );
+    expect(history.listen).toHaveBeenCalledWith(instance.historyListener);
   });
 
   it('sets `unlisten`', () => {
@@ -328,8 +438,8 @@ describe('componentWillUnmount', () => {
   const unlisten = jest.fn();
 
   beforeAll(() => {
-    browserHistory.location.search = '';
-    browserHistory.listen.mockReturnValueOnce(unlisten);
+    history.location = { search: '' };
+    history.listen.mockReturnValueOnce(unlisten);
     wrapper = shallow(<Play />).dive();
     instance = wrapper.instance();
     jest.spyOn(instance, 'unlisten');
