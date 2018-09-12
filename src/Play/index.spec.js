@@ -368,18 +368,18 @@ describe('loadStory', () => {
     jest.spyOn(instance, 'setState');
   });
 
-  describe('when url=undefined', () => {
+  describe('when url is undefined', () => {
     beforeAll(() => {
       getStory.mockReset();
       instance.loadStory();
     });
 
-    it('does not set hasLoaded=true', () => {
-      expect(instance.hasLoaded).toBe(undefined);
-    });
-
     it('does not call `getStory`', () => {
       expect(getStory).not.toHaveBeenCalled();
+    });
+
+    it('does not set hasLoaded=true', () => {
+      expect(instance.hasLoaded).toBe(undefined);
     });
 
     it('does not call `setState`', () => {
@@ -387,19 +387,41 @@ describe('loadStory', () => {
     });
   });
 
-  describe('when url="http://foo.bar"', () => {
+  describe('when fetch has resolved', () => {
     beforeAll(() => {
-      getStory.mockReturnValue(new Promise(resolve => resolve()));
+      getStory.mockReset();
+      getStory.mockReturnValue(new Promise(resolve => resolve({})));
       instance.setState.mockReset();
-      instance.loadStory('http://foo.bar');
+      return instance.loadStory('http://foo.bar');
+    });
+
+    it('calls `getStory` with url', () => {
+      expect(getStory).toHaveBeenCalledWith('http://foo.bar');
     });
 
     it('sets hasLoaded=true', () => {
       expect(instance.hasLoaded).toBe(true);
     });
 
-    it('calls `getStory`', () => {
+    it('calls `setState`', () => {
+      expect(instance.setState).toHaveBeenCalled();
+    });
+  });
+
+  describe('when fetch has rejected', () => {
+    beforeAll(() => {
+      getStory.mockReset();
+      getStory.mockReturnValue(new Promise((resolve, reject) => reject()));
+      instance.setState.mockReset();
+      return instance.loadStory('http://foo.bar');
+    });
+
+    it('calls `getStory` with url', () => {
       expect(getStory).toHaveBeenCalledWith('http://foo.bar');
+    });
+
+    it('sets hasLoaded=false', () => {
+      expect(instance.hasLoaded).toBe(false);
     });
 
     it('calls `setState`', () => {

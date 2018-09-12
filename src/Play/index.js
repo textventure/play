@@ -70,7 +70,8 @@ class Play extends Component {
   /**
    * Fetches and loads story.
    *
-   * @param {String} url
+   * @param  {String}            [url]
+   * @return {Promise|undefined}
    */
   loadStory = url => {
     if (!url) {
@@ -81,7 +82,7 @@ class Play extends Component {
     this.setState({ isLoading: true });
     const newState = { isLoading: false };
 
-    getStory(url)
+    return getStory(url)
       .then(story => {
         const { _config: config, ...branches } = story;
         if (branches && config) {
@@ -100,6 +101,7 @@ class Play extends Component {
         this.setState(newState);
       })
       .catch(() => {
+        this.hasLoaded = false;
         this.setState(newState);
       });
   };
