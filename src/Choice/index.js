@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
+import history from '../helpers/history';
 
 const styles = {
   button: {
@@ -12,24 +13,26 @@ const styles = {
 class Choice extends Component {
   /**
    * Selects choice.
-   *
-   * @param {SyntheticEvent} event
    */
-  handleClick = event => {
-    const { choiceId, selectChoice } = this.props;
+  onClick = () => {
+    const { choiceId, currentId, selectChoice } = this.props;
     if (typeof selectChoice === 'function') {
       selectChoice(choiceId);
     }
+    const search = history.location.search.replace(
+      `id=${currentId}`,
+      `id=${choiceId}`
+    );
+    history.push(search);
   };
 
   render() {
     const { children, className, classes } = this.props;
-
     return (
       <Button
         className={[classes.button, className].join(' ')}
         color="primary"
-        onClick={this.handleClick}
+        onClick={this.onClick}
       >
         {children}
       </Button>

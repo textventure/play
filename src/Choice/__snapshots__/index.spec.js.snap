@@ -1,11 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`with props renders correctly 1`] = `
+exports[`when props.children="foo" renders correctly 1`] = `
 <WithStyles(Button)
-  className="Choice-button-1 classy"
+  className="Choice-button-1 "
   color="primary"
   onClick={[Function]}
 >
-  text
+  foo
 </WithStyles(Button)>
+`;
+
+exports[`when props.className="foo" renders correctly 1`] = `
+<WithStyles(Button)
+  className="Choice-button-1 foo"
+  color="primary"
+  onClick={[Function]}
+/>
+`;
+
+exports[`when props={} renders correctly 1`] = `
+<WithStyles(Button)
+  className="Choice-button-1 "
+  color="primary"
+  onClick={[Function]}
+/>
 `;
