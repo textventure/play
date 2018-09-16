@@ -42,6 +42,7 @@ exports[`with props.choices and props.selectChoice renders correctly 1`] = `
   >
     <WithStyles(Choice)
       choiceId="value1"
+      currentId={undefined}
       selectChoice={[Function]}
     >
       <span>
@@ -50,6 +51,7 @@ exports[`with props.choices and props.selectChoice renders correctly 1`] = `
     </WithStyles(Choice)>
     <WithStyles(Choice)
       choiceId="value2"
+      currentId={undefined}
       selectChoice={[Function]}
     >
       <span>
