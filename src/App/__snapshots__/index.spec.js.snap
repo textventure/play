@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders correctly 1`] = `
+exports[`when props={} renders correctly 1`] = `
 <WithStyles(CssBaseline)>
   <GridWrapper
     container={true}
@@ -11,7 +11,59 @@ exports[`renders correctly 1`] = `
       item={true}
       xs={12}
     >
-      <WithStyles(Play) />
+      <Load />
+    </GridWrapper>
+  </GridWrapper>
+</WithStyles(CssBaseline)>
+`;
+
+exports[`when state.branches={} and state.isLoading=true renders correctly 1`] = `
+<WithStyles(CssBaseline)>
+  <GridWrapper
+    container={true}
+    justify="center"
+  >
+    <GridWrapper
+      className="App-grid-1"
+      item={true}
+      xs={12}
+    >
+      <div
+        className="App-progress-2"
+      >
+        <WithStyles(LinearProgress) />
+      </div>
+    </GridWrapper>
+  </GridWrapper>
+</WithStyles(CssBaseline)>
+`;
+
+exports[`with state.branches renders correctly 1`] = `
+<WithStyles(CssBaseline)>
+  <GridWrapper
+    container={true}
+    justify="center"
+  >
+    <GridWrapper
+      className="App-grid-1"
+      item={true}
+      xs={12}
+    >
+      <Play
+        branches={
+          Object {
+            "id": Object {
+              "Text": Array [
+                Object {
+                  "Choice text": "choice",
+                },
+              ],
+            },
+          }
+        }
+        config={Object {}}
+        id="id"
+      />
     </GridWrapper>
   </GridWrapper>
 </WithStyles(CssBaseline)>

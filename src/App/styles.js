@@ -66,6 +66,10 @@ const styles = theme => {
     grid: {
       maxWidth: 720,
     },
+
+    progress: {
+      marginTop: spacing.unit * 4, // 32px
+    },
   };
 };
 

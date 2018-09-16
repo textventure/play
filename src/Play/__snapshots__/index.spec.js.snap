@@ -1,37 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`when props.config={}, props.branches={}, and state.isLoading=false renders correctly 1`] = `<main />`;
-
-exports[`when props={} and state.isLoading=false renders correctly 1`] = `<Load />`;
-
-exports[`when props={} and state.isLoading=true renders correctly 1`] = `
-<div
-  className="Play-progress-1"
->
-  <WithStyles(LinearProgress) />
-</div>
-`;
-
-exports[`when props={} renders correctly 1`] = `<Load />`;
-
-exports[`with props and state renders correctly 1`] = `
+exports[`with props renders correctly 1`] = `
 <main>
   <WithStyles(Branch)
     choices={
       Array [
-        Object {
-          "Choice text.": "choice",
-        },
+        "choice1",
+        "choice2",
       ]
     }
-    config={
-      Object {
-        "renderer": "text",
-        "start": "start",
-      }
-    }
-    selectChoice={[Function]}
-    text="Text."
+    config={Object {}}
+    id="start"
+    text="text"
   />
 </main>
 `;
