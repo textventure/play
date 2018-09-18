@@ -9,7 +9,7 @@ import Load from '../Load';
 import styles from './styles';
 import { getStory } from '../helpers/api';
 import history from '../helpers/history';
-import { searchParams } from '../helpers/url';
+import querystring from '../helpers/querystring';
 
 // default textventure config
 export const defaultConfig = {
@@ -50,7 +50,7 @@ class App extends Component {
    * @param {*}      location.state
    */
   historyListener = location => {
-    const { id, url } = searchParams(location.search);
+    const { id, url } = querystring.parse(location.search);
     if (!url) {
       this.setState(initialState);
       return;

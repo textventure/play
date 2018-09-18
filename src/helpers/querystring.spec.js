@@ -1,11 +1,11 @@
-import { searchParams } from './url';
+import querystring from './querystring';
 
-describe('searchParams', () => {
+describe('querystring.parse', () => {
   // invalid cases
   [undefined, null, 42, Object, Array, Function, Date].forEach(arg => {
     describe(`when arguments=[${arg}]`, () => {
       it('throws error', () => {
-        expect(() => searchParams(arg)).toThrow(TypeError);
+        expect(() => querystring.parse(arg)).toThrow(TypeError);
       });
     });
   });
@@ -65,32 +65,10 @@ describe('searchParams', () => {
       args: ['?foo%20bar=baz%2Fqux'],
       expected: { 'foo bar': 'baz/qux' },
     },
-
-    // with 2 arguments
-    {
-      args: ['', 'foo'],
-      expected: undefined,
-    },
-    {
-      args: ['?foo=bar', null],
-      expected: { foo: 'bar' },
-    },
-    {
-      args: ['?foo=bar', ''],
-      expected: undefined,
-    },
-    {
-      args: ['?foo=bar', 'bar'],
-      expected: undefined,
-    },
-    {
-      args: ['?foo=bar', 'foo'],
-      expected: 'bar',
-    },
   ].forEach(({ args, expected }) => {
     describe(`when arguments=${JSON.stringify(args)}`, () => {
       it(`returns ${JSON.stringify(expected)}`, () => {
-        expect(searchParams.apply(null, args)).toEqual(expected);
+        expect(querystring.parse.apply(null, args)).toEqual(expected);
       });
     });
   });
