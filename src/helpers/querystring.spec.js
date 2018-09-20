@@ -73,3 +73,65 @@ describe('querystring.parse', () => {
     });
   });
 });
+
+describe('querystring.stringify', () => {
+  // invalid cases
+  [undefined, null, 42, Function, Date].forEach(arg => {
+    describe(`when arguments=[${arg}]`, () => {
+      it('throws error', () => {
+        expect(() => querystring.stringify(arg)).toThrow(TypeError);
+      });
+    });
+  });
+
+  // test cases
+  [
+    // empty object
+    {
+      args: [{}],
+      expected: '?',
+    },
+
+    // single key-value pair
+    {
+      args: [{ foo: 'bar' }],
+      expected: '?foo=bar',
+    },
+
+    // value is empty
+    {
+      args: [{ foo: undefined }],
+      expected: '?foo=',
+    },
+    {
+      args: [{ foo: null }],
+      expected: '?foo=',
+    },
+    {
+      args: [{ foo: '' }],
+      expected: '?foo=',
+    },
+
+    // key-value pairs
+    {
+      args: [{ foo: 'bar', baz: 0 }],
+      expected: '?foo=bar&baz=0',
+    },
+    {
+      args: [{ foo: 'bar', baz: 0, qux: '' }],
+      expected: '?foo=bar&baz=0&qux=',
+    },
+
+    // encoded
+    {
+      args: [{ 'foo bar': 'baz/qux' }],
+      expected: '?foo%20bar=baz%2Fqux',
+    },
+  ].forEach(({ args, expected }) => {
+    describe(`when arguments=${JSON.stringify(args)}`, () => {
+      it(`returns ${JSON.stringify(expected)}`, () => {
+        expect(querystring.stringify.apply(null, args)).toEqual(expected);
+      });
+    });
+  });
+});

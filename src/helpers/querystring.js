@@ -22,7 +22,7 @@ const EQUAL = '=';
 /**
  * Parses a URL query string into a collection of key and value pairs.
  *
- * @see {@link https://nodejs.org/api/querystring.html querystring}
+ * @see {@link https://nodejs.org/api/querystring.html#querystring_querystring_parse_str_sep_eq_options querystring.parse}
  *
  * @param  {String} string - The URL query string to parse.
  * @return {Object}
@@ -73,6 +73,34 @@ export const parse = string => {
   }, {});
 };
 
+/**
+ * Produces a URL query string from a given object.
+ *
+ * @see {@link https://nodejs.org/api/querystring.html#querystring_querystring_stringify_obj_sep_eq_options querystring.stringify}
+ *
+ * @param  {Object} object - The object to serialize into a URL query string.
+ * @return {String}
+ */
+export const stringify = object => {
+  if (!object || typeof object !== 'object') {
+    throw TypeError('First argument must be an object');
+  }
+
+  const fields = Object.keys(object).reduce((accumulator, key) => {
+    let value = object[key];
+    if (value === undefined || value === null) {
+      value = '';
+    }
+    accumulator.push(
+      encodeURIComponent(key) + EQUAL + encodeURIComponent(value)
+    );
+    return accumulator;
+  }, []);
+
+  return QUESTION_MARK + fields.join(SEPARATOR);
+};
+
 export default {
   parse,
+  stringify,
 };
