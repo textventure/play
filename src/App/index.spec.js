@@ -167,15 +167,15 @@ describe('historyListener', () => {
 
   describe('when hasLoaded=false and location.search="?url=http://localhost"', () => {
     const url = 'http://localhost';
-    const search = `?url=${url}`;
+    const location = { search: `?url=${url}` };
 
     beforeAll(() => {
       instance.hasLoaded = false;
     });
 
     it('calls `loadStory` with url', () => {
-      instance.historyListener({ search });
-      expect(instance.loadStory).toHaveBeenCalledWith(url, search);
+      instance.historyListener(location);
+      expect(instance.loadStory).toHaveBeenCalledWith(url, { url });
     });
   });
 });
@@ -234,15 +234,12 @@ describe('loadStory', () => {
     });
 
     it('sets state with branches, config, id, and isLoading', () => {
-      expect(instance.setState).toHaveBeenCalledWith(
-        {
-          branches,
-          config: defaultConfig,
-          isLoading: false,
-          id: defaultConfig.start,
-        },
-        expect.any(Function)
-      );
+      expect(instance.setState).toHaveBeenCalledWith({
+        branches,
+        config: defaultConfig,
+        isLoading: false,
+        id: defaultConfig.start,
+      });
     });
 
     it('calls history.push with id', () => {
@@ -252,7 +249,6 @@ describe('loadStory', () => {
 
   describe('when fetch is resolved and search="?url=http://localhost"', () => {
     const config = { start: 'next' };
-    const search = '?url=http://localhost';
 
     beforeAll(() => {
       getStory.mockClear();
@@ -264,27 +260,24 @@ describe('loadStory', () => {
       history.push.mockClear();
       instance.hasLoaded = false;
       instance.setState.mockClear();
-      return instance.loadStory(url, search);
+      return instance.loadStory(url, { url });
     });
 
     it('sets state with branches, config, id, and isLoading', () => {
-      expect(instance.setState).toHaveBeenCalledWith(
-        {
-          branches: {},
-          config: {
-            ...defaultConfig,
-            ...config,
-          },
-          id: config.start,
-          isLoading: false,
+      expect(instance.setState).toHaveBeenCalledWith({
+        branches: {},
+        config: {
+          ...defaultConfig,
+          ...config,
         },
-        expect.any(Function)
-      );
+        id: config.start,
+        isLoading: false,
+      });
     });
 
     it('calls history.push with id', () => {
       expect(history.push).toHaveBeenCalledWith(
-        '?url=http://localhost&id=' + config.start
+        `?url=${encodeURIComponent('http://localhost')}&id=${config.start}`
       );
     });
   });
@@ -292,7 +285,6 @@ describe('loadStory', () => {
   describe('when fetch is resolved and search="?id=start"', () => {
     const config = { start: 'next' };
     const id = 'start';
-    const search = '?id=' + id;
 
     beforeAll(() => {
       getStory.mockClear();
@@ -305,26 +297,23 @@ describe('loadStory', () => {
       instance.hasLoaded = false;
       instance.setState.mockClear();
       wrapper.setState({ id });
-      return instance.loadStory(url, search);
+      return instance.loadStory(url, { id });
     });
 
     it('sets state with branches, config, id, and isLoading', () => {
-      expect(instance.setState).toHaveBeenCalledWith(
-        {
-          branches: {},
-          config: {
-            ...defaultConfig,
-            ...config,
-          },
-          id: config.start,
-          isLoading: false,
+      expect(instance.setState).toHaveBeenCalledWith({
+        branches: {},
+        config: {
+          ...defaultConfig,
+          ...config,
         },
-        expect.any(Function)
-      );
+        id,
+        isLoading: false,
+      });
     });
 
-    it('calls history.push with id', () => {
-      expect(history.push).toHaveBeenCalledWith('?id=' + config.start);
+    it('does not call history.push', () => {
+      expect(history.push).not.toHaveBeenCalled();
     });
   });
 

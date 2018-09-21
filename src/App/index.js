@@ -50,32 +50,34 @@ class App extends Component {
    * @param {*}      location.state
    */
   historyListener = location => {
-    const { id, url } = querystring.parse(location.search);
-    if (!url) {
+    const searchParams = querystring.parse(location.search);
+    if (!searchParams.url) {
       this.setState(initialState);
       return;
     }
 
     if (this.hasLoaded) {
+      const { id } = searchParams;
       if (id && id !== this.state.id) {
         this.setState({ id });
       }
       return;
     }
 
-    this.setState({ isLoading: true }, () =>
-      this.loadStory(url, location.search)
-    );
+    this.setState({ isLoading: true }, () => {
+      this.loadStory(searchParams.url, searchParams);
+    });
   };
 
   /**
    * Fetches and loads story.
    *
    * @param  {String}  url
-   * @param  {String}  search
+   * @param  {Object}  [searchParams={}]
+   * @param  {String}  [searchParams.id]
    * @return {Promise}
    */
-  loadStory = (url, search) => {
+  loadStory = (url, searchParams = {}) => {
     this.hasLoaded = true;
 
     return getStory(url)
@@ -94,19 +96,21 @@ class App extends Component {
           ...config,
         };
 
-        // set starting branch id
-        newState.id = config.start || defaultConfig.start;
-
-        // add id to location search
-        if (!search) {
-          search = '?id=' + newState.id;
-        } else if (search.indexOf('id=' + this.state.id) === -1) {
-          search += `&id=${newState.id}`;
+        if (searchParams.id) {
+          // use branch id from location search
+          newState.id = searchParams.id;
         } else {
-          search = search.replace('id=' + this.state.id, 'id=' + newState.id);
+          // or use start id and set in location search
+          newState.id = config.start || defaultConfig.start;
+          history.push(
+            querystring.stringify({
+              ...searchParams,
+              id: newState.id,
+            })
+          );
         }
 
-        this.setState(newState, () => history.push(search));
+        this.setState(newState);
       })
       .catch(() => {
         this.hasLoaded = false;
