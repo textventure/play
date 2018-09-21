@@ -2,6 +2,35 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.3.0"></a>
+# [0.3.0](https://github.com/textventure/play/compare/v0.2.0...v0.3.0) (2018-09-21)
+
+
+### Bug Fixes
+
+* **play:** do not set `hasLoaded` to true if `getStory` failed ([c2ff2c4](https://github.com/textventure/play/commit/c2ff2c4))
+
+
+### Features
+
+* **app:** update global margins and increase grid max-width to 720 ([8c7532a](https://github.com/textventure/play/commit/8c7532a))
+* **app:** use or set start `id` from location search (history api) ([146a57e](https://github.com/textventure/play/commit/146a57e))
+* **branch:** add some margins between text and choices ([e6483d4](https://github.com/textventure/play/commit/e6483d4))
+* **branch:** pass prop `id` from <Branch> to <Choice> ([7f2458b](https://github.com/textventure/play/commit/7f2458b))
+* **card:** double the margins of <Card> on medium and up screens ([56e5f45](https://github.com/textventure/play/commit/56e5f45))
+* **choice:** push choiceId to history search after onClick ([e329d94](https://github.com/textventure/play/commit/e329d94))
+* **helpers:** add querystring method `stringify` and tests ([181171d](https://github.com/textventure/play/commit/181171d))
+* **helpers:** add url helper `searchParams` with tests ([1969165](https://github.com/textventure/play/commit/1969165))
+* **helpers:** create browser history object ([dd62ce5](https://github.com/textventure/play/commit/dd62ce5))
+* **helpers:** update url helper `searchParams` ([f3cad35](https://github.com/textventure/play/commit/f3cad35))
+* **load:** update <Load> to use history.push and not call getStory ([fca368a](https://github.com/textventure/play/commit/fca368a))
+* **play:** update history listener to not fetch if already loaded ([21d168c](https://github.com/textventure/play/commit/21d168c))
+* **public:** update meta description and title in `index.html` ([6381497](https://github.com/textventure/play/commit/6381497))
+* **src:** render <Theme> as the root in index.js ([9a5b4c8](https://github.com/textventure/play/commit/9a5b4c8))
+* **theme:** add <Theme> and tests ([58c3a53](https://github.com/textventure/play/commit/58c3a53))
+
+
+
 <a name="0.2.0"></a>
 # [0.2.0](https://github.com/textventure/play/compare/v0.1.0...v0.2.0) (2018-07-23)
 

@@ -1,6 +1,6 @@
 {
   "name": "textventure-play",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A user interface (UI) for text adventures.",
   "author": "Mark <mark@remarkablemark.org>",
   "scripts": {
