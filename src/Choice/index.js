@@ -15,10 +15,7 @@ class Choice extends Component {
    * Selects choice.
    */
   onClick = () => {
-    const { choiceId, currentId, selectChoice } = this.props;
-    if (typeof selectChoice === 'function') {
-      selectChoice(choiceId);
-    }
+    const { choiceId, currentId } = this.props;
     const search = history.location.search.replace(
       `id=${currentId}`,
       `id=${choiceId}`

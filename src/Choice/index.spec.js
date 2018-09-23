@@ -3,9 +3,9 @@ import { shallow } from 'enzyme';
 import history from '../helpers/history';
 import Choice from '.';
 
-let wrapper;
 let instance;
 let props;
+let wrapper;
 
 jest.mock('../helpers/history', () => ({
   location: {},
@@ -83,28 +83,5 @@ describe('onClick', () => {
     });
     instance.onClick();
     expect(history.push).toHaveBeenCalledWith('?id=choiceId');
-  });
-
-  describe('when props.selectChoice=Function"', () => {
-    beforeAll(() => {
-      wrapper.setProps({ selectChoice: jest.fn() });
-    });
-
-    it('calls `props.selectChoice` with props.choiceId when clicked', () => {
-      const { props } = wrapper.instance();
-      expect(props.selectChoice).not.toHaveBeenCalled();
-      wrapper.simulate('click');
-      expect(props.selectChoice).toHaveBeenCalledWith(props.choiceId);
-    });
-  });
-
-  describe('when props.selectChoice=undefined', () => {
-    beforeAll(() => {
-      wrapper.setProps({ selectChoice: undefined });
-    });
-
-    it('does not throw when clicked', () => {
-      expect(() => wrapper.instance().onClick()).not.toThrow();
-    });
   });
 });

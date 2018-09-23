@@ -32,7 +32,6 @@ class Branch extends Component {
       config: { renderer },
       id,
       text,
-      selectChoice,
     } = this.props;
 
     return (
@@ -44,12 +43,7 @@ class Branch extends Component {
         {choices instanceof Array && (
           <div className={classes.choices}>
             {choices.map((choice, index) => (
-              <Choice
-                choiceId={getValue(choice)}
-                currentId={id}
-                key={index}
-                selectChoice={selectChoice}
-              >
+              <Choice choiceId={getValue(choice)} currentId={id} key={index}>
                 {render(getKey(choice), renderer, 'span')}
               </Choice>
             ))}
