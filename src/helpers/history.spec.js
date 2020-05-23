@@ -1,13 +1,9 @@
-import createBrowserHistory from 'history/createBrowserHistory';
+import { createBrowserHistory } from 'history';
 import browserHistory from './history';
 
-jest.mock('history/createBrowserHistory', () =>
-  jest.fn().mockReturnValue('browserHistory')
-);
-
-afterAll(() => {
-  jest.unmock('history/createBrowserHistory');
-});
+jest.mock('history', () => ({
+  createBrowserHistory: jest.fn().mockReturnValue('browserHistory'),
+}));
 
 it('calls createBrowserHistory', () => {
   expect(createBrowserHistory).toHaveBeenCalled();
