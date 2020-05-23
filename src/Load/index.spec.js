@@ -1,7 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import history from '../helpers/history';
-import { defineProperty } from '../helpers/test-util';
 import Load from '.';
 
 jest.mock('../helpers/history', () => ({ push: jest.fn() }));
@@ -19,7 +18,6 @@ beforeAll(() => {
 
 afterAll(() => {
   window.URL = URL;
-  jest.unmock('../helpers/history');
 });
 
 describe('when props={}', () => {
@@ -169,26 +167,23 @@ describe('onSubmit', () => {
   });
 });
 
-describe('when location.origin="http://foo.bar" and process.env.PUBLIC_URL="/play"', () => {
-  const { origin } = window.location;
+describe('when process.env.PUBLIC_URL="/play"', () => {
   const { PUBLIC_URL } = process.env;
 
   beforeAll(() => {
     jest.resetModules();
-    defineProperty(window.location, 'origin', 'http://foo.bar');
     process.env.PUBLIC_URL = '/play';
     const Load = require('.').default;
     wrapper = shallow(<Load />);
   });
 
   afterAll(() => {
-    defineProperty(window.location, 'origin', origin);
     process.env.PUBLIC_URL = PUBLIC_URL;
   });
 
   it('renders <TextField> with correct placeholder', () => {
     expect(wrapper.find('TextField').prop('placeholder')).toBe(
-      'http://foo.bar/play/demo.yaml'
+      'http://localhost/play/demo.yaml'
     );
   });
 });

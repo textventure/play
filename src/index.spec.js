@@ -1,4 +1,4 @@
-const { jsyaml } = window;
+const { fetch, jsyaml } = window;
 
 let element = document.createElement('div');
 
@@ -6,7 +6,7 @@ beforeAll(() => {
   jest.spyOn(document, 'getElementById');
   document.getElementById.mockImplementation(() => element);
 
-  jest.spyOn(window, 'fetch');
+  window.fetch = jest.fn('fetch');
   window.fetch.mockImplementation(
     () =>
       new Promise(resolve =>
@@ -24,7 +24,7 @@ beforeAll(() => {
 
 afterAll(() => {
   document.getElementById.mockRestore();
-  document.fetch.mockRestore();
+  document.fetch = fetch;
   window.jsyaml = jsyaml;
 });
 
