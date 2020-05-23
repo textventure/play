@@ -33,12 +33,7 @@ describe('when props.children="foo"', () => {
   });
 
   it('renders text "foo"', () => {
-    expect(
-      wrapper
-        .find('WithStyles(Button)')
-        .children()
-        .text()
-    ).toBe('foo');
+    expect(wrapper.find('WithStyles(Button)').children().text()).toBe('foo');
   });
 
   it('renders correctly', () => {
