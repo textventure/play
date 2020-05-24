@@ -12,8 +12,7 @@
     "lint:fix": "npm run lint -- --fix",
     "release": "standard-version --no-verify",
     "start": "NODE_ENV=development react-app-rewired start",
-    "test": "CI=true npm run test:watch",
-    "test:watch": "react-app-rewired test --coverage"
+    "test": "react-app-rewired test --coverage"
   },
   "homepage": "https://textventure.github.io/play",
   "devDependencies": {
