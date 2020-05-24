@@ -1,7 +1,7 @@
 {
   "name": "textventure-play",
   "version": "0.4.0",
-  "description": "A user interface (UI) for text adventures.",
+  "description": "textventure UI.",
   "author": "Mark <mark@remarkablemark.org>",
   "scripts": {
     "build": "NODE_ENV=production react-app-rewired build",
@@ -12,8 +12,8 @@
     "lint:fix": "npm run lint -- --fix",
     "release": "standard-version --no-verify",
     "start": "NODE_ENV=development react-app-rewired start",
-    "test": "CI=true npm run test:watch -- --coverage",
-    "test:watch": "react-app-rewired test --env=jsdom"
+    "test": "CI=true npm run test:watch",
+    "test:watch": "react-app-rewired test --coverage"
   },
   "homepage": "https://textventure.github.io/play",
   "devDependencies": {
