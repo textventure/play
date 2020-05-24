@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.1](https://github.com/textventure/play/compare/v1.1.0...v1.1.1) (2020-05-24)
+
+
+### Bug Fixes
+
+* **public:** fix relative links in demo.yaml ([4cca88c](https://github.com/textventure/play/commit/4cca88c79879f61b573f399ad12c9247861258a0))
+
 ## [1.1.0](https://github.com/textventure/play/compare/v1.0.1...v1.1.0) (2020-05-24)
 
 
