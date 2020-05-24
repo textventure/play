@@ -1,6 +1,30 @@
-# Change Log
+# Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+## [1.0.0](https://github.com/textventure/play/compare/v0.4.0...v1.0.0) (2020-05-24)
+
+
+### ⚠ BREAKING CHANGES
+
+* **app:** heading styles for textventure markup have
+changed due to the upgrade of material-ui to v4.
+
+Use spacing(2) for margin-bottom of heading and paragraph.
+
+### Features
+
+* unset paragraph + button letter-spacing in <App> and <Choice> ([a1b5bd9](https://github.com/textventure/play/commit/a1b5bd9f5a1ae44cfc87e6a1b99f308dc7653247))
+* **app:** fix and update typography styles in <App> ([2ab2705](https://github.com/textventure/play/commit/2ab27051aab1f0290f28dc0abfb2d909c84a5f3d))
+* **lintstaged:** run prettier for html and yaml files ([2985502](https://github.com/textventure/play/commit/2985502c804ca10b2783c31ca8b08d37925f64be))
+* upgrade react, react-dom, and @material-ui/core ([c6852c9](https://github.com/textventure/play/commit/c6852c95602a4b47f50cbf6965dfec2413e1a276))
+
+
+### Bug Fixes
+
+* **app:** revert branch paragraph margin-bottom to spacing 1 ([dafa18d](https://github.com/textventure/play/commit/dafa18dc08610cd7ee5f54fe2f053e5f453662bd))
+* **public:** comment out `manifest.json` from index.html ([76f2560](https://github.com/textventure/play/commit/76f256013f36e5bf07a52e636f11a7d04c5f0255))
+* **public:** fix links, update heading, run prettier for demo.yaml ([ce19669](https://github.com/textventure/play/commit/ce196695814e98dfdba837737203c3ee3f351e9c))
 
 <a name="0.4.0"></a>
 # [0.4.0](https://github.com/textventure/play/compare/v0.3.0...v0.4.0) (2018-11-02)
