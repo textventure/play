@@ -10,39 +10,38 @@ const branchSelector = '.' + branchClass;
 const styles = theme => {
   const { palette, spacing, typography } = theme;
   const { pxToRem } = typography;
-  const marginBottom1 = pxToRem(spacing(1));
-  const marginBottom2 = pxToRem(spacing(2));
+  const marginBottom = pxToRem(spacing(2));
 
-  return {
+  const styles = {
     '@global': {
       [branchSelector]: {
         '& h1': {
-          ...typography.display3,
-          marginBottom: marginBottom2,
+          ...typography.h1,
+          marginBottom,
         },
         '& h2': {
-          ...typography.display2,
-          marginBottom: marginBottom2,
+          ...typography.h2,
+          marginBottom,
         },
         '& h3': {
-          ...typography.display1,
-          marginBottom: marginBottom2,
+          ...typography.h3,
+          marginBottom,
         },
         '& h4': {
-          ...typography.headline,
-          marginBottom: marginBottom2,
+          ...typography.h4,
+          marginBottom,
         },
         '& h5': {
-          ...typography.title,
-          marginBottom: marginBottom2,
+          ...typography.h5,
+          marginBottom,
         },
         '& h6': {
-          ...typography.subheading,
-          marginBottom: marginBottom2,
+          ...typography.h6,
+          marginBottom,
         },
         '& p': {
-          ...typography.body1,
-          marginBottom: marginBottom1,
+          ...typography.body2,
+          marginBottom,
         },
       },
 
@@ -71,6 +70,8 @@ const styles = theme => {
       marginTop: spacing(4), // 32px
     },
   };
+
+  return styles;
 };
 
 export default styles;
