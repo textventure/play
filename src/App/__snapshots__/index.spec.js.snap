@@ -1,29 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`when props={} renders correctly 1`] = `
-<WithStyles(CssBaseline)>
-  <GridWrapper
+<ForwardRef(WithStyles)>
+  <ForwardRef(WithStyles)
     container={true}
     justify="center"
   >
-    <GridWrapper
+    <ForwardRef(WithStyles)
       className="App-grid-1"
       item={true}
       xs={12}
     >
       <Load />
-    </GridWrapper>
-  </GridWrapper>
-</WithStyles(CssBaseline)>
+    </ForwardRef(WithStyles)>
+  </ForwardRef(WithStyles)>
+</ForwardRef(WithStyles)>
 `;
 
 exports[`when state.branches={} and state.isLoading=true renders correctly 1`] = `
-<WithStyles(CssBaseline)>
-  <GridWrapper
+<ForwardRef(WithStyles)>
+  <ForwardRef(WithStyles)
     container={true}
     justify="center"
   >
-    <GridWrapper
+    <ForwardRef(WithStyles)
       className="App-grid-1"
       item={true}
       xs={12}
@@ -31,20 +31,20 @@ exports[`when state.branches={} and state.isLoading=true renders correctly 1`] =
       <div
         className="App-progress-2"
       >
-        <WithStyles(LinearProgress) />
+        <ForwardRef(WithStyles) />
       </div>
-    </GridWrapper>
-  </GridWrapper>
-</WithStyles(CssBaseline)>
+    </ForwardRef(WithStyles)>
+  </ForwardRef(WithStyles)>
+</ForwardRef(WithStyles)>
 `;
 
 exports[`with state.branches renders correctly 1`] = `
-<WithStyles(CssBaseline)>
-  <GridWrapper
+<ForwardRef(WithStyles)>
+  <ForwardRef(WithStyles)
     container={true}
     justify="center"
   >
-    <GridWrapper
+    <ForwardRef(WithStyles)
       className="App-grid-1"
       item={true}
       xs={12}
@@ -64,7 +64,7 @@ exports[`with state.branches renders correctly 1`] = `
         config={Object {}}
         id="id"
       />
-    </GridWrapper>
-  </GridWrapper>
-</WithStyles(CssBaseline)>
+    </ForwardRef(WithStyles)>
+  </ForwardRef(WithStyles)>
+</ForwardRef(WithStyles)>
 `;

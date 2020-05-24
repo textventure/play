@@ -2,7 +2,7 @@
 
 exports[`with props renders correctly 1`] = `
 <main>
-  <WithStyles(Branch)
+  <ForwardRef(WithStyles)
     choices={
       Array [
         "choice1",

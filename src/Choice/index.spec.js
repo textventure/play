@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { Button } from '@material-ui/core';
 import history from '../helpers/history';
 import Choice from '.';
 
@@ -33,7 +34,7 @@ describe('when props.children="foo"', () => {
   });
 
   it('renders text "foo"', () => {
-    expect(wrapper.find('WithStyles(Button)').children().text()).toBe('foo');
+    expect(wrapper.find(Button).children().text()).toBe('foo');
   });
 
   it('renders correctly', () => {
@@ -48,9 +49,7 @@ describe('when props.className="foo"', () => {
   });
 
   it('adds className to <Button>', () => {
-    expect(wrapper.find('WithStyles(Button)').prop('className')).toContain(
-      'foo'
-    );
+    expect(wrapper.find(Button).prop('className')).toContain('foo');
   });
 
   it('renders correctly', () => {
@@ -65,9 +64,7 @@ describe('onClick', () => {
   });
 
   it('sets `onClick` on <Button>', () => {
-    expect(wrapper.find('WithStyles(Button)').prop('onClick')).toBe(
-      instance.onClick
-    );
+    expect(wrapper.find(Button).prop('onClick')).toBe(instance.onClick);
   });
 
   it('calls `history.push` with props.choiceId', () => {

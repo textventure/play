@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`when props.text="text" and props.config.renderer="text" renders correctly 1`] = `
-<WithStyles(Card)>
+<ForwardRef(WithStyles)>
   <div
     className="branch"
   >
@@ -9,11 +9,11 @@ exports[`when props.text="text" and props.config.renderer="text" renders correct
       text
     </p>
   </div>
-</WithStyles(Card)>
+</ForwardRef(WithStyles)>
 `;
 
 exports[`when props.text="text" renders correctly 1`] = `
-<WithStyles(Card)>
+<ForwardRef(WithStyles)>
   <div
     className="branch"
   >
@@ -21,39 +21,39 @@ exports[`when props.text="text" renders correctly 1`] = `
       text
     </div>
   </div>
-</WithStyles(Card)>
+</ForwardRef(WithStyles)>
 `;
 
 exports[`when props={} renders correctly 1`] = `
-<WithStyles(Card)>
+<ForwardRef(WithStyles)>
   <div
     className="branch"
   />
-</WithStyles(Card)>
+</ForwardRef(WithStyles)>
 `;
 
 exports[`with props.choices and props.selectChoice renders correctly 1`] = `
-<WithStyles(Card)>
+<ForwardRef(WithStyles)>
   <div
     className="branch"
   />
   <div
     className="Branch-choices-1"
   >
-    <WithStyles(Choice)
+    <ForwardRef(WithStyles)
       choiceId="value1"
     >
       <span>
         key1
       </span>
-    </WithStyles(Choice)>
-    <WithStyles(Choice)
+    </ForwardRef(WithStyles)>
+    <ForwardRef(WithStyles)
       choiceId="value2"
     >
       <span>
         key2
       </span>
-    </WithStyles(Choice)>
+    </ForwardRef(WithStyles)>
   </div>
-</WithStyles(Card)>
+</ForwardRef(WithStyles)>
 `;

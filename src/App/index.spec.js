@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { LinearProgress } from '@material-ui/core';
 import { getStory } from '../helpers/api';
 import history from '../helpers/history';
 import App, { defaultConfig, initialState } from '.';
@@ -46,7 +47,7 @@ describe('when state.branches={} and state.isLoading=true', () => {
   });
 
   it('renders <LinearProgress>', () => {
-    expect(wrapper.find('WithStyles(LinearProgress)').length).toBe(1);
+    expect(wrapper.find(LinearProgress).length).toBe(1);
   });
 
   it('renders correctly', () => {

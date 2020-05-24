@@ -10,8 +10,8 @@ const branchSelector = '.' + branchClass;
 const styles = theme => {
   const { palette, spacing, typography } = theme;
   const { pxToRem } = typography;
-  const marginBottom1 = pxToRem(spacing.unit);
-  const marginBottom2 = pxToRem(spacing.unit * 2);
+  const marginBottom1 = pxToRem(spacing(1));
+  const marginBottom2 = pxToRem(spacing(2));
 
   return {
     '@global': {
@@ -68,7 +68,7 @@ const styles = theme => {
     },
 
     progress: {
-      marginTop: spacing.unit * 4, // 32px
+      marginTop: spacing(4), // 32px
     },
   };
 };

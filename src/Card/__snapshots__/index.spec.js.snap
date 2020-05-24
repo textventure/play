@@ -1,15 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`when props.children="foo" renders correctly 1`] = `
-<WithStyles(Paper)
+<ForwardRef(WithStyles)
   className="Card-spacing-1 Card-pre-line-2 "
 >
   foo
-</WithStyles(Paper)>
+</ForwardRef(WithStyles)>
 `;
 
 exports[`when props.className="foo" renders correctly 1`] = `
-<WithStyles(Paper)
+<ForwardRef(WithStyles)
   className="Card-spacing-1 Card-pre-line-2 foo"
 />
 `;

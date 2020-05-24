@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { MuiThemeProvider } from '@material-ui/core';
 import Theme from '.';
 
 let wrapper;
@@ -14,11 +15,11 @@ describe('when props.children="children"', () => {
   });
 
   it('renders <MuiThemeProvider>', () => {
-    expect(wrapper.find('MuiThemeProvider').length).toBe(1);
+    expect(wrapper.find(MuiThemeProvider).length).toBe(1);
   });
 
   it('renders "children"', () => {
-    expect(wrapper.find('MuiThemeProvider').prop('children')).toBe(
+    expect(wrapper.find(MuiThemeProvider).prop('children')).toBe(
       props.children
     );
   });

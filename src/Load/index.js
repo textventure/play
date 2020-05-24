@@ -68,7 +68,7 @@ export default class Load extends Component {
         )}
 
         <form onSubmit={this.onSubmit}>
-          <Typography gutterBottom variant="headline">
+          <Typography gutterBottom variant="h5">
             Load Story
           </Typography>
 

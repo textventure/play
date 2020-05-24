@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { Snackbar, TextField } from '@material-ui/core';
 import history from '../helpers/history';
 import Load from '.';
 
@@ -26,7 +27,7 @@ describe('when props={}', () => {
   });
 
   it('renders <TextField> with default placeholder', () => {
-    expect(wrapper.find('TextField').prop('placeholder')).toBe(
+    expect(wrapper.find(TextField).prop('placeholder')).toBe(
       'http://localhost/demo.yaml'
     );
   });
@@ -44,9 +45,7 @@ describe('when state.message="foo"', () => {
   });
 
   it('renders <Snackbar> with message', () => {
-    expect(wrapper.find('WithStyles(Snackbar)').prop('message')).toBe(
-      state.message
-    );
+    expect(wrapper.find(Snackbar).prop('message')).toBe(state.message);
   });
 
   it('renders correctly', () => {
@@ -64,9 +63,7 @@ describe('onClose', () => {
   });
 
   it('sets `onClose` on <Snackbar>', () => {
-    expect(wrapper.find('WithStyles(Snackbar)').prop('onClose')).toBe(
-      instance.onClose
-    );
+    expect(wrapper.find(Snackbar).prop('onClose')).toBe(instance.onClose);
   });
 
   it('calls `setState`', () => {
@@ -88,7 +85,7 @@ describe('when state.value="http://foo.bar"', () => {
   });
 
   it('renders <TextField> with value', () => {
-    expect(wrapper.find('TextField').prop('value')).toBe(state.value);
+    expect(wrapper.find(TextField).prop('value')).toBe(state.value);
   });
 });
 
@@ -99,7 +96,7 @@ describe('when state.error="Error"', () => {
   });
 
   it('renders <TextField> with error styling', () => {
-    expect(wrapper.find('TextField').prop('error')).toBe(true);
+    expect(wrapper.find(TextField).prop('error')).toBe(true);
   });
 });
 
@@ -111,7 +108,7 @@ describe('onChange', () => {
   describe('when value is a url', () => {
     beforeAll(() => {
       event = { target: { value: 'http://foo.bar' } };
-      wrapper.find('TextField').simulate('change', event);
+      wrapper.find(TextField).simulate('change', event);
     });
 
     it('sets state.value', () => {
@@ -129,7 +126,7 @@ describe('onChange', () => {
         throw new Error();
       });
       event = { target: { value: 'foo.bar' } };
-      wrapper.find('TextField').simulate('change', event);
+      wrapper.find(TextField).simulate('change', event);
     });
 
     it('sets state.value', () => {
@@ -163,27 +160,6 @@ describe('onSubmit', () => {
   it('calls `history.push` with state.value', () => {
     expect(history.push).toHaveBeenCalledWith(
       `?url=${encodeURIComponent(state.value)}`
-    );
-  });
-});
-
-describe('when process.env.PUBLIC_URL="/play"', () => {
-  const { PUBLIC_URL } = process.env;
-
-  beforeAll(() => {
-    jest.resetModules();
-    process.env.PUBLIC_URL = '/play';
-    const Load = require('.').default;
-    wrapper = shallow(<Load />);
-  });
-
-  afterAll(() => {
-    process.env.PUBLIC_URL = PUBLIC_URL;
-  });
-
-  it('renders <TextField> with correct placeholder', () => {
-    expect(wrapper.find('TextField').prop('placeholder')).toBe(
-      'http://localhost/play/demo.yaml'
     );
   });
 });

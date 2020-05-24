@@ -1,18 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`when props={} renders correctly 1`] = `
-<WithStyles(Card)>
+<ForwardRef(WithStyles)>
   
   <form
     onSubmit={[Function]}
   >
-    <WithStyles(Typography)
+    <ForwardRef(WithStyles)
       gutterBottom={true}
-      variant="headline"
+      variant="h5"
     >
       Load Story
-    </WithStyles(Typography)>
-    <TextField
+    </ForwardRef(WithStyles)>
+    <ForwardRef(WithStyles)
       InputLabelProps={
         Object {
           "shrink": true,
@@ -28,28 +28,27 @@ exports[`when props={} renders correctly 1`] = `
       onChange={[Function]}
       placeholder="http://localhost/demo.yaml"
       required={true}
-      select={false}
       spellCheck={false}
       type="url"
       value=""
     />
     <br />
     <br />
-    <WithStyles(Button)
+    <ForwardRef(WithStyles)
       color="primary"
       size="medium"
       type="submit"
       variant="contained"
     >
       Load
-    </WithStyles(Button)>
+    </ForwardRef(WithStyles)>
   </form>
-</WithStyles(Card)>
+</ForwardRef(WithStyles)>
 `;
 
 exports[`when state.message="foo" renders correctly 1`] = `
-<WithStyles(Card)>
-  <WithStyles(Snackbar)
+<ForwardRef(WithStyles)>
+  <ForwardRef(WithStyles)
     autoHideDuration={6000}
     message="foo"
     onClose={[Function]}
@@ -58,13 +57,13 @@ exports[`when state.message="foo" renders correctly 1`] = `
   <form
     onSubmit={[Function]}
   >
-    <WithStyles(Typography)
+    <ForwardRef(WithStyles)
       gutterBottom={true}
-      variant="headline"
+      variant="h5"
     >
       Load Story
-    </WithStyles(Typography)>
-    <TextField
+    </ForwardRef(WithStyles)>
+    <ForwardRef(WithStyles)
       InputLabelProps={
         Object {
           "shrink": true,
@@ -80,21 +79,20 @@ exports[`when state.message="foo" renders correctly 1`] = `
       onChange={[Function]}
       placeholder="http://localhost/demo.yaml"
       required={true}
-      select={false}
       spellCheck={false}
       type="url"
       value=""
     />
     <br />
     <br />
-    <WithStyles(Button)
+    <ForwardRef(WithStyles)
       color="primary"
       size="medium"
       type="submit"
       variant="contained"
     >
       Load
-    </WithStyles(Button)>
+    </ForwardRef(WithStyles)>
   </form>
-</WithStyles(Card)>
+</ForwardRef(WithStyles)>
 `;

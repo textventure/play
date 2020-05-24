@@ -15,7 +15,7 @@ const styles = theme => {
   const { spacing, typography } = theme;
   return {
     choices: {
-      marginTop: typography.pxToRem(spacing.unit * 2),
+      marginTop: typography.pxToRem(spacing(2)),
     },
   };
 };

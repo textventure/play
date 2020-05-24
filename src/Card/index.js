@@ -9,16 +9,16 @@ import { withStyles } from '@material-ui/core/styles';
  * @return {Object}
  */
 const styles = theme => {
-  const spacingUnit = theme.spacing.unit;
+  const { spacing } = theme;
 
   return {
     spacing: {
-      margin: spacingUnit * 2, // 16px
-      padding: spacingUnit * 3, // 24px
+      margin: spacing(2), // 16px
+      padding: spacing(3), // 24px
 
       // @media (min-width: 600px)
       [theme.breakpoints.up('md')]: {
-        margin: spacingUnit * 4, // 32px
+        margin: spacing(4), // 32px
       },
     },
     'pre-line': {

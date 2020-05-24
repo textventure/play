@@ -1,17 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`when props.children="foo" renders correctly 1`] = `
-<WithStyles(Button)
+<ForwardRef(WithStyles)
   className="Choice-button-1 "
   color="primary"
   onClick={[Function]}
 >
   foo
-</WithStyles(Button)>
+</ForwardRef(WithStyles)>
 `;
 
 exports[`when props.className="foo" renders correctly 1`] = `
-<WithStyles(Button)
+<ForwardRef(WithStyles)
   className="Choice-button-1 foo"
   color="primary"
   onClick={[Function]}
@@ -19,7 +19,7 @@ exports[`when props.className="foo" renders correctly 1`] = `
 `;
 
 exports[`when props={} renders correctly 1`] = `
-<WithStyles(Button)
+<ForwardRef(WithStyles)
   className="Choice-button-1 "
   color="primary"
   onClick={[Function]}
