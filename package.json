@@ -5,7 +5,7 @@
   "author": "Mark <mark@remarkablemark.org>",
   "scripts": {
     "build": "NODE_ENV=production react-app-rewired build",
-    "clean": "rimraf build",
+    "clean": "rm -rf build",
     "deploy": "scripts/deploy.sh",
     "eject": "react-scripts eject",
     "lint": "eslint --ignore-path .gitignore .",
@@ -17,7 +17,6 @@
   },
   "homepage": "https://textventure.github.io/play",
   "devDependencies": {
-    "@babel/runtime": "7.9.6",
     "@commitlint/cli": "8.3.5",
     "@commitlint/config-conventional": "8.3.4",
     "@material-ui/core": "4.10.0",
@@ -34,7 +33,6 @@
     "react-dom": "16.13.1",
     "react-hot-loader": "4.12.21",
     "react-scripts": "3.4.1",
-    "rimraf": "3.0.2",
     "standard-version": "8.0.0"
   },
   "engines": {
