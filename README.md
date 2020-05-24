@@ -1,8 +1,8 @@
 # [textventure/play](https://textventure.github.io/play/)
 
-A user interface (UI) for playing text adventures.
+[textventure](https://textventure.github.io/) UI.
 
-[Play a textventure.](https://textventure.github.io/play/)
+[Play](https://textventure.github.io/play/)
 
 ## Prerequisites
 
@@ -12,75 +12,54 @@ A user interface (UI) for playing text adventures.
 ## Install
 
 Clone repository:
+
 ```sh
-git clone https://github.com/textventure/play.git textventure-play
-cd textventure-play
+$ git clone https://github.com/textventure/play.git
+$ cd play
 ```
 
 Install dependencies:
-```sh
-# with npm
-npm install
 
-# with yarn
-yarn
+```sh
+$ npm install
 ```
 
 ## Run
 
 Start development server:
-```sh
-# with npm
-npm start
 
-# with yarn
-yarn start
+```sh
+$ npm start
 ```
 
 ## Lint
 
 ```sh
-# with npm
-npm run lint
-npm run lint:fix
-
-# with yarn
-yarn lint
-yarn lint:fix
+$ npm run lint
+$ npm run lint:fix
 ```
 
 ## Test
 
 ```sh
-# with npm
-npm test
-npm run test:watch
-
-# with yarn
-yarn test
-yarn test:watch
+$ npm test
+$ npm run test:watch
 ```
 
 ## Release
 
 Release with [standard-version](https://github.com/conventional-changelog/standard-version):
-```sh
-# with npm
-npm run release
 
-# with yarn
-yarn release
+```sh
+$ npm run release
 ```
 
 ## Deploy
 
 Deploy production build to [GitHub Pages](https://pages.github.com):
-```sh
-# with npm
-npm run deploy
 
-# with yarn
-yarn deploy
+```sh
+$ npm run deploy
 ```
 
 ## License
