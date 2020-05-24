@@ -114,7 +114,9 @@ class App extends Component {
       })
       .catch(() => {
         this.hasLoaded = false;
-        this.setState({ isLoading: false }, () => history.push(''));
+        this.setState({ isLoading: false }, () =>
+          history.push(process.env.PUBLIC_URL)
+        );
       });
   };
 
