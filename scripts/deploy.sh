@@ -4,7 +4,7 @@
 stash_output=$(git add . && git stash)
 
 # run lint and tests first
-npm run lint && npm test
+npm run lint && CI=true npm test
 
 # remove `build` directory and build production bundle
 npm run clean && npm run build
