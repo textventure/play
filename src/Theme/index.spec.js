@@ -15,7 +15,7 @@ describe('when props.children="children"', () => {
   });
 
   it('renders <MuiThemeProvider>', () => {
-    expect(wrapper.find(MuiThemeProvider).length).toBe(1);
+    expect(wrapper.find(MuiThemeProvider)).toHaveLength(1);
   });
 
   it('renders "children"', () => {

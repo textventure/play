@@ -31,7 +31,7 @@ describe('when props={}', () => {
   });
 
   it('renders <Load>', () => {
-    expect(wrapper.find('Load').length).toBe(1);
+    expect(wrapper.find('Load')).toHaveLength(1);
   });
 
   it('renders correctly', () => {
@@ -47,7 +47,7 @@ describe('when state.branches={} and state.isLoading=true', () => {
   });
 
   it('renders <LinearProgress>', () => {
-    expect(wrapper.find(LinearProgress).length).toBe(1);
+    expect(wrapper.find(LinearProgress)).toHaveLength(1);
   });
 
   it('renders correctly', () => {
@@ -71,7 +71,7 @@ describe('with state.branches', () => {
   });
 
   it('renders <Play>', () => {
-    expect(wrapper.find('Play').length).toBe(1);
+    expect(wrapper.find('Play')).toHaveLength(1);
   });
 
   it('renders correctly', () => {
