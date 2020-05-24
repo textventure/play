@@ -41,6 +41,7 @@ const styles = theme => {
         },
         '& p': {
           ...typography.body2,
+          letterSpacing: 'initial',
           marginBottom,
         },
       },

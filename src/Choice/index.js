@@ -5,6 +5,7 @@ import history from '../helpers/history';
 
 const styles = {
   button: {
+    letterSpacing: 'initial',
     textAlign: 'left',
     textTransform: 'none',
   },
