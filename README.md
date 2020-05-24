@@ -1,10 +1,13 @@
 # [textventure/play](https://textventure.github.io/play/)
 
+[![Build Status](https://travis-ci.org/textventure/play.svg?branch=master)](https://travis-ci.org/textventure/play)
+[![Coverage Status](https://coveralls.io/repos/github/textventure/play/badge.svg?branch=master)](https://coveralls.io/github/textventure/play?branch=master)
+
 [textventure](https://textventure.github.io/) UI.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-[Play](https://textventure.github.io/play/)
+<kbd>[Play](https://textventure.github.io/play/)</kbd>
 
 ## Prerequisites
 
@@ -70,11 +73,11 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 
 ### `npm run release`
 
-Creates a release using [standard-version](https://github.com/conventional-changelog/standard-version):
+Creates a release using [standard-version](https://github.com/conventional-changelog/standard-version).
 
 ## `npm run deploy`
 
-Deploys build to [GitHub Pages](https://pages.github.com):
+Deploys build to [GitHub Pages](https://pages.github.com).
 
 ## License
 
