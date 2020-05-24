@@ -33,7 +33,7 @@ yaml:
 
 write:
   ? |-
-    When writing a textventure, follow the [spec](https://textventure.github.io/spec/) (e.g., see [demo.yaml](play/demo.yaml)).
+    When writing a textventure, follow the [spec](https://textventure.github.io/spec/) (e.g., see [demo.yaml](/play/demo.yaml)).
 
     You can validate your YAML with [`yaml-json-repl`](https://remarkablemark.org/yaml-json-repl/).
   : - How can I _play_ a textventure?: play
@@ -45,7 +45,7 @@ play:
 
     You can use a public service like [Gist](https://gist.github.com/) to host the file.
 
-    Go to [play](play) and enter the file URL.
+    Go to [play](/play) and enter the file URL.
   : - How can I _write_ a textventure?: write
     - END: end
 
@@ -53,5 +53,5 @@ end:
   ? |-
     You've reached the end of the demo. Thanks for playing!
 
-    Go to [play](play) or [home](/).
+    Go to [play](/play) or [home](/).
   : - RESTART: start
