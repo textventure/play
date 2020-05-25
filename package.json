@@ -14,7 +14,6 @@
     "start": "NODE_ENV=development react-app-rewired start",
     "test": "react-app-rewired test --coverage"
   },
-  "homepage": "https://textventure.github.io/play",
   "devDependencies": {
     "@commitlint/cli": "8.3.5",
     "@commitlint/config-conventional": "8.3.4",
