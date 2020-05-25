@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/textventure/play/compare/v1.1.1...v1.2.0) (2020-05-25)
+
+
+### Features
+
+* **env:** move "homepage" from package.json to .env PUBLIC_URL ([8dee9d0](https://github.com/textventure/play/commit/8dee9d0712bbcf9142aa6032aa9413bf81c92a03))
+
+
+### Bug Fixes
+
+* **app:** ensure path is kept if there's an error loading story ([a5336e0](https://github.com/textventure/play/commit/a5336e0a28fff74a3e70a0c981c7b87a94e3746c))
+
 ### [1.1.1](https://github.com/textventure/play/compare/v1.1.0...v1.1.1) (2020-05-24)
 
 
