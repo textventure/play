@@ -1,0 +1,57 @@
+_config:
+  start: start
+  renderer: markdown
+
+start:
+  ? |-
+    ##### Textventure Demo
+
+    The goal of the demo is to introduce you to [Textventure](/).
+
+    Press `NEXT` to proceed.
+  : - NEXT: next
+
+next:
+  ? |-
+    **Textventure** is the organization that provides standards and tooling for writing and playing _textventures_.
+
+    A **textventure** is a text adventure or [interactive fiction](https://wikipedia.org/wiki/Interactive_fiction) game.
+  : - Continue.: continue
+
+continue:
+  We use **YAML** to write a textventure.:
+    - What's YAML?: yaml
+    - I know YAML.: write
+
+yaml:
+  ? |-
+    [YAML](https://wikipedia.org/wiki/YAML) is a _data serialization_ language.
+
+    The format was chosen due to its readable nature.
+  : - How can I _write_ a textventure?: write
+    - How can I _play_ a textventure?: play
+
+write:
+  ? |-
+    When writing a textventure, follow the [spec](https://textventure.github.io/spec/) (e.g., see [demo.yaml](/play/demo.yaml)).
+
+    You can validate your YAML with [`yaml-json-repl`](https://remarkablemark.org/yaml-json-repl/).
+  : - How can I _play_ a textventure?: play
+    - END: end
+
+play:
+  ? |-
+    When the textventure is written, the file needs to be available on the web for it to be played.
+
+    You can use a public service like [Gist](https://gist.github.com/) to host the file.
+
+    Go to [play](/play) and enter the file URL.
+  : - How can I _write_ a textventure?: write
+    - END: end
+
+end:
+  ? |-
+    You've reached the end of the demo. Thanks for playing!
+
+    Go to [play](/play) or [home](/).
+  : - RESTART: start
