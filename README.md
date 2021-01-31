@@ -1,6 +1,6 @@
 # [textventure/play](https://textventure.github.io/play/)
 
-[![Build Status](https://travis-ci.org/textventure/play.svg?branch=master)](https://travis-ci.org/textventure/play)
+[![Build Status](https://github.com/textventure/play/workflows/build/badge.svg?branch=master)](https://github.com/textventure/play/actions?query=workflow%3Abuild)
 [![Coverage Status](https://coveralls.io/repos/github/textventure/play/badge.svg?branch=master)](https://coveralls.io/github/textventure/play?branch=master)
 
 [textventure](https://textventure.github.io/) UI.
@@ -14,19 +14,19 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 - [Node.js 8+](https://nodejs.org/en/download/)
 - [npm 5.3+](https://www.npmjs.com/get-npm) or [yarn 1+](https://yarnpkg.com/en/docs/install)
 
-## Installation
+## Install
 
 Clone repository:
 
 ```sh
-$ git clone https://github.com/textventure/play.git
-$ cd play
+git clone https://github.com/textventure/play.git
+cd play
 ```
 
 Install dependencies:
 
 ```sh
-$ npm install
+npm install
 ```
 
 ## Available Scripts
@@ -60,6 +60,14 @@ The build is minified and the filenames include the hashes.
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### `npm run lint`
+
+Lints the project.
+
+### `npm run lint:fix`
+
+Fixes lint errors.
 
 ### `npm run eject`
 
